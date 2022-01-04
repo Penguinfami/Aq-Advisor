@@ -1,8 +1,13 @@
+:root {
+  --mainFont: 'Josefin Sans', sans-serif;
+}
+
 .page , .footer {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   margin: 3%;
+  font-family: var(--mainFont);
 }
 
 .nextButton, .backButton {
@@ -23,6 +28,9 @@
 input, select {
   border: 5px solid dodgerblue;
   border-radius: 12px;
+  height: 2.5rem;
+  padding-top: 0.2rem;
+  vertical-align: middle;
 }
 
 input.quantity {
@@ -30,3 +38,4 @@ input.quantity {
   font-size: 1.5rem;
   width: 5rem;
 }
+
