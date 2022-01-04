@@ -8,13 +8,14 @@ import TankSetup from './components/pages/TankSetup';
 import StockingSetup from './components/pages/StockingSetup';
 import Advice from './components/pages/Advice';
 import Results from './components/pages/Results';
+import Footer from './components/partials/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
   const [name, setName] = useState("");
   const [filters, setFilters] = useState([]);
-  const [dimensions, setDimensions] = useState("");
+  const [dimensions, setDimensions] = useState({});
   const [stocking, setStocking] = useState([[]]);
   const [advice, setAdvice] = useState([{}]);
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/results" element={<Results prevPage="/advice" />}></Route>
         </Routes>
       </Router>
+      <Footer/>
     </div>
   );
 }

@@ -35,19 +35,21 @@ const TankSetup = (props) => {
         console.log(value);
         switch (name) {
             case 'dimensions' : 
-                props.setDimensions(value); break;
+                props.setDimensions(sampleOptions.filter((option) => option.value === value)[0]); break;
             case 'filter1' : 
-                 props.setFilters([value, props.filters[1]]); break;
+                 props.setFilters([sampleOptions.filter((option) => option.value === value)[0], props.filters[1]]); break;
             case 'filter2' :  
-                props.setFilters([props.filter, props.filters[2]]); break;
+                props.setFilters([props.filters[0], sampleOptions.filter((option) => option.value === value)[0]]); break;
         }
     }
 
     const onNext = () => {
         console.log(props.dimensions, props.filters[0]);
-        if (!props.dimensions) {
+        if (!props.dimensions.value) {
+            console.log("dimensions", props.dimensions.value);
             return toggleErrorMessage(true);
         } else if (!props.filters[0]) {
+            console.log("filter", props.filters[0])
             return toggleErrorMessage(true);
         }
         navigate(props.nextPage);
@@ -58,13 +60,13 @@ const TankSetup = (props) => {
             {errorMessage ? <Button title="error" onClick={() => toggleErrorMessage(false)}/> : null}
             <Button title="Back" onClick={() => navigate(props.prevPage)} className="backButton"/>
             <TitleHeader/>
+            <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
+                 name="dimensions" heading="Choose Tank Dimensions" options={[{"value": null, "name":"Choose..."},...sampleOptions]}/>
             <OptionSelect onChange={handleChange}
-                 name="dimensions" heading="Choose Tank Dimensions" options={[{"value": null, "title":"Choose..."},...sampleOptions]}/>
-            <OptionSelect onChange={handleChange}
-                name="filter1" heading="Choose Filter 1" options={[{"value": null, "title":"Choose..."},...sampleOptions]}/>
+                name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{"value": null, "name":"Choose..."},...sampleOptions]}/>
             <Button className="text-decoration-none small-why" title="Why?"/>
-            <OptionSelect onChange={handleChange}
-                name="filter2" heading="Choose Filter 2" options={[{"value": null, "title":"Choose..."}, ...sampleOptions]}/>
+            <OptionSelect selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
+                name="filter2" heading="Choose Filter 2" options={[{"value": null, "name":"Choose..."}, ...sampleOptions]}/>
             <Button title="Next" className="nextButton" onClick={() => onNext()}
             />
         </div>
