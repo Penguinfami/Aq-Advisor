@@ -23,9 +23,11 @@ class DatabaseLogic {
     dimensions(lst = null){
         
         let optionsList;
+        let startIndex = 0;
 
         if (lst === null){
             console.log(lst);
+            startIndex = 2;
             optionsList = this.getOptionsList('AquListBoxTank');
         } else {
             optionsList = lst
@@ -33,7 +35,7 @@ class DatabaseLogic {
 
         let arr = [];
 
-        for (let i = 2; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
+        for (let i = startIndex; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
             let option = optionsList[i];
             let newDimension = {
                 name : option.trim(),
@@ -49,8 +51,9 @@ class DatabaseLogic {
     filters(lst = null){
 
         let optionsList;
-
+        let startIndex = 0;
         if (lst === null){
+            startIndex = 2;
             optionsList = this.getOptionsList('AquListBoxFilter');
         } else {
             optionsList = lst
@@ -58,7 +61,7 @@ class DatabaseLogic {
 
         let arr = [];
         
-        for (let i = 2; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
+        for (let i = startIndex; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
             let option = optionsList[i];
             let newFilter = {
                 name : option.trim(),
@@ -72,16 +75,17 @@ class DatabaseLogic {
     species(lst = null){
 
         let optionsList;
-        
+        let startIndex = 0;
         if (lst === null){
             optionsList = this.getOptionsList('AquListBoxChooser');
+            startIndex = 2;
         } else {
             optionsList = lst
         }
 
         let arr = [];
         
-        for (let i = 2; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
+        for (let i = startIndex; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
             let option = optionsList[i];
             let names = this.getSpeciesNames(option);
             let newSpecies = {

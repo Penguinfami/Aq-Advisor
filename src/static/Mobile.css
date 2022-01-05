@@ -117,7 +117,7 @@
     flex-flow: column wrap;
     align-items: stretch; 
     width: 16.5625rem;
-    max-width: 70vw;
+    max-width: 80vw;
   }
 
   
@@ -147,6 +147,9 @@
     border: 0.3rem solid var(--mainInputColour);
   }
 
+  input:hover, select:hover, .selectList:hover{
+    cursor: pointer;
+  }
 
 
   .selectList {
@@ -171,7 +174,7 @@
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--mainInputContrastColour) var(--mainInputColour);
-    height: 10rem;
+    height: 11rem;
     width: 100%;
     border-radius: 0.7rem;
     padding-bottom: 3rem;
@@ -189,7 +192,7 @@
 
   .selectedListItem {
       color: black;
-      background-color: rgb(226, 226, 226);
+      background-color: rgb(209, 209, 209);
   }
 
   input.quantity, .quantityButton {
@@ -226,6 +229,7 @@
 
   .quantityHeading {
     font-size: 1rem;
+    text-align: center;
   }
 
   .quantityButton {
@@ -234,7 +238,8 @@
     background-color: var(--mainInputColour);
   }
 
-  .quantityButton:hover, .quantityButton:active {
+  .quantityButton:hover, .quantityButton:active, .nextButton:hover, .backButton:hover,
+  .nextButton:active, .backButton:active {
     background-color: var(--mainButtonPressColour);
   }
   
