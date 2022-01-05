@@ -5,28 +5,7 @@ import Error from '../partials/Error'
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 const TankSetup = (props) => {
-
-    const sampleOptions = [
-        {
-            "value": "5g",
-            "name": "5 gallon"
-        },
-        {
-            "value": "10g",
-            "name": "10 gallon"
-        },
-        {
-            "value": "29g",
-            "name": "29 gallon"
-        },
-        {
-            "value": "50g",
-            "name": "50 gallon"
-        },
-    ]
-
-
-        
+       
     var testo;
     const [errorMessage, toggleErrorMessage] = useState(false);
     const [errorMessageContent, setErrorMessageContent] = useState("");
