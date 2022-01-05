@@ -28,15 +28,15 @@ const Advice = (props) => {
             <TitleHeader/>
             {exampleAdvice.warning ?
              <div className="warning">
-                <h2>Warning!</h2>
+                <h2 className="adviceHeading warningHeading">Warning!</h2>
                 {exampleAdvice.warning.map((warning) => <p className="warningMessage" key={warning.id}>{warning.message}</p>)}
             </div>    
             : null
             }
             {exampleAdvice.suggestion ?
              <div className="suggestion">
-                <h2>Suggestion:</h2>
-                {exampleAdvice.suggestion.map((suggestion) => <p className="warningMessage" key={suggestion.id}>{suggestion.message}</p>)}
+                <h2 className="adviceHeading suggestionHeading">Suggestion:</h2>
+                {exampleAdvice.suggestion.map((suggestion) => <p className="suggestionMessage" key={suggestion.id}>{suggestion.message}</p>)}
             </div>    
             : null
             }

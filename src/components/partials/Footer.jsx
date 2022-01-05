@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <div className="footer">
-            I do not own the AqAdvisor database. www.aqadvisor.com is a wonderful site for new and experience fishkeepers to gauge their aquarium tank stocking capacity and recommendations.
+            <span>I do not own the AqAdvisor database. <a href="http://www.aqadvisor.com" target="_blank">www.aqadvisor.com</a> is a wonderful site for new and experienced fishkeepers to gauge their aquarium tank stocking capacity and recommendations.</span>
         </div>
     )
 }

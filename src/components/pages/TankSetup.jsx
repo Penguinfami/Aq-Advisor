@@ -1,6 +1,7 @@
 import TitleHeader from '../partials/TitleHeader'
 import Button from '../partials/Button';
 import OptionSelect from '../partials/OptionSelect';
+import Error from '../partials/Error'
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ const TankSetup = (props) => {
 
 
     const [errorMessage, toggleErrorMessage] = useState(false);
+    const [errorMessageContent, setErrorMessageContent] = useState("");
 
     const navigate = useNavigate();
 
@@ -45,11 +47,13 @@ const TankSetup = (props) => {
 
     const onNext = () => {
         console.log(props.dimensions, props.filters[0]);
-        if (!props.dimensions.value) {
-            console.log("dimensions", props.dimensions.value);
+        if (!props.dimensions) {
+            console.log("dimensions", props.dimensions);
+            setErrorMessageContent("Missing tank dimensions.")
             return toggleErrorMessage(true);
         } else if (!props.filters[0]) {
             console.log("filter", props.filters[0])
+            setErrorMessageContent("Missing at least 1 filter.");
             return toggleErrorMessage(true);
         }
         navigate(props.nextPage);
@@ -57,18 +61,29 @@ const TankSetup = (props) => {
 
     return (
         <div className="page">
-            {errorMessage ? <Button title="error" onClick={() => toggleErrorMessage(false)}/> : null}
+            {errorMessage ? <Error heading="Error" body={errorMessageContent} onClose={() => toggleErrorMessage(false)}/> : null}
+            
             <Button title="Back" onClick={() => navigate(props.prevPage)} className="backButton"/>
+            
             <TitleHeader/>
-            <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
-                 name="dimensions" heading="Choose Tank Dimensions" options={[{"value": null, "name":"Choose..."},...sampleOptions]}/>
-            <OptionSelect onChange={handleChange}
-                name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{"value": null, "name":"Choose..."},...sampleOptions]}/>
-            <Button className="text-decoration-none small-why" title="Why?"/>
-            <OptionSelect selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
-                name="filter2" heading="Choose Filter 2" options={[{"value": null, "name":"Choose..."}, ...sampleOptions]}/>
-            <Button title="Next" className="nextButton" onClick={() => onNext()}
-            />
+            
+            <div className="dimensionsSelect selectionContainer">
+                <label className="selectHeading" htmlFor="dimensions">Choose Tank Dimensions</label>
+                <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
+                    name="dimensions" options={[{value: null, name:"Choose..."},...sampleOptions]}/>   
+            </div>
+            <div className="filterSelect selectionContainers">
+                <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
+                <OptionSelect onChange={handleChange}
+                    name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{value: null, name:"Choose..."},...sampleOptions]}/>
+                <Button className="text-decoration-none smallWhy" title="Why?"/>
+            </div>
+            <div className="filterSelect selectionContainer">
+                <label className="selectHeading" htmlFor="filter2">Choose Filter 2</label>
+                <OptionSelect selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
+                    name="filter2" heading="Choose Filter 2" options={[{value: null, name:"Choose..."}, ...sampleOptions]}/>
+            </div>
+            <Button title="Next" className="nextButton" onClick={() => onNext()}/>
         </div>
     )
 }

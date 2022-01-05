@@ -3,8 +3,8 @@ import Button from './Button'
 
 const TitleHeader = (props) => {
     return (
-        <div>
-            <h1>MyAqAdvisor!</h1>
+        <div className="titleHeader">
+            <h1>MyAqAdvisor</h1>
         </div>
     )
 }

@@ -1,0 +1,317 @@
+.App {
+    background-color: var(--mainBackgroundColour);
+    min-height: 100vh;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .page , .footer {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    padding: 2%;
+    font-family: var(--mainFont);
+  }
+  
+  #homepage .titleHeader {
+      margin-top: 25%;
+  }
+
+  :focus-visible {
+      outline: none;
+  }
+
+  .errorMessageBackground {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.308);
+  }
+
+ 
+  .errorContent {
+    margin: 30% auto;
+    width: 80% !important;
+    padding: 2rem;
+    text-align: center;
+    background-color: rgb(223, 243, 255) !important;
+    border: 0.2rem solid var(--mainInputColour) !important;
+    border-radius: 0.9rem !important;
+  }
+
+  .errorHeading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+  }
+
+  .errorBody {
+    margin: 0.6rem 0rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .errorFooter {
+    text-align: right;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .errorMessageClose {
+    background: none;
+    color: var(--mainInputHeadingColour);
+  }  
+
+  .errorMessageClose:hover {
+    color: black;
+  }
+
+  .nameInput {
+    background: none;
+    border:none;
+    border-bottom: 0.3rem solid var(--mainInputColour);
+    margin: 2rem;
+    width: 15rem;
+    font-size: 1.5rem;
+  }
+  
+  .button {
+    border: none;
+  }
+  
+  .nextButton, .backButton {
+    background-color: var(--mainInputColour);
+    color: var(--mainInputContrastColour);
+    vertical-align: center;
+    border-radius: 8.625rem;
+  
+  }
+  
+  .nextButton {
+    font-size: 2.2rem;
+    width: 10.1rem;
+    height: 4rem;
+  }
+  
+  .backButton {
+    margin: 1rem 2rem;
+    width: 6.375rem;
+    height: 2.2rem;
+    align-self: flex-start;
+  }
+  
+  .smallWhy {
+    background: none;
+    color: var(--mainInputColour);
+    align-self: flex-start;
+  }
+  
+  .selectionContainer{
+    margin: 0.5rem;
+    display: flex;
+    flex-flow: column wrap;
+  }
+  
+  .selectOption {
+    display: flex;
+    flex-flow: column wrap;
+    text-align: center;
+  }
+
+  .selectHeading {
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+  
+  select {
+    width: 16.5625rem;
+    max-width: 85vw;
+    border-radius: 0.8rem;
+    height: 2.3rem;
+    padding-top: 0.2rem;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1.125rem;
+  }
+  
+  input, select, .selectList {
+    color: var(--mainInputHeadingColour);
+    border: 0.3rem solid var(--mainInputColour);
+  }
+
+  .selectionContainer {
+    align-items: center; 
+    width: 80%;
+  }
+
+
+  .selectList {
+    border-radius: 0.8rem;
+    background-color: var(--mainInputContrastColour);
+    width: 100%;
+    min-width: 10rem;
+  }
+
+  .selectListItems::-webkit-scrollbar-track{
+    visibility: none;
+  }
+  .selectListItems::-webkit-scrollbar-thumb{
+    background-color: var(--mainInputColour);
+  }
+
+  .selectListItems::-webkit-scrollbar{
+    width: 0.3rem;
+}
+
+  .selectListItems{
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--mainInputContrastColour) var(--mainInputColour);
+    height: 10rem;
+    width: 100%;
+    border-radius: 0.7rem;
+    padding-bottom: 3rem;
+  }
+  
+  .selectListItem {
+    width: 100%;
+    color: var(--mainInputHeadingColour);
+  }
+
+  .selectListItem:hover {
+    color: black;
+  }
+
+
+  .selectedListItem {
+      color: black;
+      background-color: rgb(226, 226, 226);
+  }
+
+  input.quantity, .quantityButton {
+    text-align: center;
+    width: 5.0rem;
+    border-radius: 0.85rem;
+    height: 2.7rem;
+  }
+
+
+  .quantity {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+  }
+
+  .quantityInputs {
+      position: relative;
+      top: -3rem;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 80%;
+      margin-bottom: -3rem;
+      background-color: rgba(240, 248, 255, 0.315);
+  }
+
+  .quantityNumber {
+      display: flex;
+      flex-flow: column wrap;
+  }
+
+  .quantityHeading {
+    font-size: 1rem;
+  }
+
+  .quantityButton {
+    font-size: 1.1rem;
+    color: var(--mainInputContrastColour);
+    background-color: var(--mainInputColour);
+  }
+
+  .quantityButton:hover, .quantityButton:active {
+    background-color: var(--mainButtonPressColour);
+  }
+  
+  label {
+    font-size: 1.5rem;
+    color: var(--mainInputHeadingColour);
+  }
+  
+  
+  .warning, .suggestion {
+    font-size: 1.2rem;
+    max-width: 80vw;
+    width: 85%;
+    min-width: 16.375rem;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+  
+  .adviceHeading {
+    font-size: 1.5rem;
+  }
+  
+  .warningHeading{
+    color: red;
+  }
+  
+  .warningMessage {
+    color: #9C0000;
+  }
+  
+  .suggestionHeading{
+    color: #00084E;
+  }
+  
+  .suggestionMessage {
+    color: #5A004C;
+  }
+  
+  .inputSummary {
+    font-size: 1.25rem;
+    color: var(--mainInputColourVariant);
+    width: 90%;
+    line-height: 1.5rem;
+  }
+  
+  .inputSummarySpecific {
+    color: #00417D;
+  }
+  
+  .resultsDisplay {
+    width: 90%;
+    max-width: 800px;
+    line-height: 1.2rem;
+  }
+  
+  .recommendationsTable {
+    display: flex;
+    flex-flow: column wrap;
+    font-size: 1.125rem;
+  }
+  
+  .recommendation {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0.6rem 0.2rem;
+  }
+  
+  .recommendationTitle {
+    width: 50%;
+  }
+  
+  .recommendationValue {
+    width: 50%;
+    min-width: 50px;
+    text-align: right;
+  }
+  
+  .filtrationCapacityComment {
+    color: #009D2C;
+    font-size: 1.125rem;
+    text-align: center;
+    margin: 0.2rem;
+  }

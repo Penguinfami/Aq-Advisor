@@ -1,6 +1,8 @@
 import TitleHeader from '../partials/TitleHeader'
 import Button from '../partials/Button';
 import OptionSelect from '../partials/OptionSelect';
+import SelectList from '../partials/SelectList';
+import Error from '../partials/Error';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,8 +26,28 @@ const StockingSetup = (props) => {
             "scientificName": "fivo gallonus"
         },
         {
-            "value": "cherrybarb",
-            "name": "Cherry Barb",
+            "value": "cherrybarb1",
+            "name": "Cherry Barb1",
+            "scientificName": "fivo gallonus"
+        },
+        {
+            "value": "cherrybarb2",
+            "name": "Cherry Barb2",
+            "scientificName": "fivo gallonus"
+        },
+        {
+            "value": "cherrybarb3",
+            "name": "Cherry Barb3",
+            "scientificName": "fivo gallonus"
+        },
+        {
+            "value": "cherrybarb4",
+            "name": "Cherry Barb4",
+            "scientificName": "fivo gallonus"
+        },
+        {
+            "value": "cherrybarb5",
+            "name": "Cherry Barb5",
             "scientificName": "fivo gallonus"
         },
     ]
@@ -42,9 +64,10 @@ const StockingSetup = (props) => {
 
     const navigate = useNavigate();
 
-    const quantityAddInput = useRef(), quantityRemoveInput = useRef();
+    const quantityAddInput = useRef(), quantityRemoveInput = useRef(), speciesToAddList = useRef(), speciesToRemoveList = useRef();
 
     const [errorMessage, toggleErrorMessage] = useState(false);
+    const [errorMessageContent, setErrorMessageContent] = useState("");
     const [speciesToAdd, setSpeciesToAdd] = useState(null);
     const [speciesToRemove, setSpeciesToRemove] = useState(null);
     const [quantityAdd, setQuantityAdd] = useState(1);
@@ -68,7 +91,13 @@ const StockingSetup = (props) => {
     }
 
     const addSpecies = () => {
-        if (speciesToAdd === null || quantityAdd < 1) return toggleErrorMessage(true)
+        if (speciesToAdd === null){
+            toggleErrorMessage(true)
+            setErrorMessageContent("No species selected to add")
+        } else if (quantityAdd < 1) {
+            toggleErrorMessage(true)
+            setErrorMessageContent("The quantity to add must be 1 or greater")  
+        }
         let alreadyAdded = false;
         setSelectedSpecies(selectedSpecies.map(
             (species) => {
@@ -95,54 +124,87 @@ const StockingSetup = (props) => {
     }
 
     const removeSpecies = () =>{
-        if (speciesToRemove === null || quantityRemove < 1) return toggleErrorMessage(true)
-        setSelectedSpecies(selectedSpecies.map(
-            (species) => {
+        if (!speciesToRemove){
+            toggleErrorMessage(true)
+            setErrorMessageContent("No species selected to remove.")
+        } else if (quantityAdd < 1) {
+            toggleErrorMessage(true)
+            setErrorMessageContent("The quantity to remove must be 1 or greater.")  
+        }
+
+        let newSpeciesList = selectedSpecies.map(
+                (species) => {
                 if (species.value === speciesToRemove.value){
-                    if (species.quantity < quantityRemove) return toggleErrorMessage(true);
-                    return {...species, quantity : parseInt(species.quantity) - parseInt(quantityRemove) }
+                    if (species.quantity < quantityRemove) {
+                        console.log(species);
+                        toggleErrorMessage(true) 
+                        setErrorMessageContent(`The quantity (${quantityRemove}) to remove is less than the amount of the species currently selected (${species.quantity}).`)
+                        return species
+                    }
+                    else {
+                        if (species.quantity == quantityRemove) setSpeciesToRemove(null);
+                        return {...species, quantity : parseInt(species.quantity) - parseInt(quantityRemove) }
+                    }
                 } else {
                     return species
                 }
-            }
-        ).filter((species) => species.quantity >= 1));
+            });
+        if (errorMessage) {
+            console.log("error");
+            return;
+        };
+        setSelectedSpecies(newSpeciesList.filter((species) => parseInt(species.quantity) >= 1));
         console.log(quantityRemove)
         setQuantityRemove(1);
         quantityRemoveInput.current.value = 1;
     }
 
     const onNext = () => {
-        if (props.s) {
+        if (selectedSpecies.length < 1) {
             toggleErrorMessage(true);
-        } else if (props.filter1 === null) {
-            toggleErrorMessage(true);
-        }
+            setErrorMessageContent("No fish species have been added.")
+            return;
+        } 
         navigate(props.nextPage);
     }
 
     return (
         <div className="page">
+            {errorMessage ? <Error heading="Error" body={errorMessageContent} onClose={() => toggleErrorMessage(false)}/> : null}
             <Button title="Back" onClick={() => navigate(props.prevPage)} className="backButton" routename="/tank"/>
             <TitleHeader/>
-            <OptionSelect onChange={handleChange} selected={speciesToAdd ? speciesToAdd.value : null} name="chooseSpeciesListAdd" heading="Choose Fish Species" options={sampleOptions}/>
-            <label htmlFor="quantityOfSpecies">Quantity</label>
-            <input ref={quantityAddInput} onChange={handleChange} className="quantity" name="quantityOfSpecies" type="number" placeholder={quantityAdd}/>
-            <Button onClick={() => addSpecies()} className="bg-secondary" title="Add"/>
-            <div>(list of Selected species will be here)</div>
-            {selectedSpecies.map((species) => (<div>{`${species.quantity}x ${species.name}`}</div>))}
-            <OptionSelect onChange={handleChange} selected={speciesToRemove ? speciesToRemove.value : null} name="chooseSpeciesListRemove" heading="Selected Species"
-                options={selectedSpecies.map((species) =>(
-                    {
-                        name:`${species.quantity}x ${species.name}`, 
-                        value: species.value,
-                        scientificName: species.scientificName
-                    }
-                    ))}/>
-
-            <label htmlFor="quantityOfSelectedSpecies">Quantity</label>
-            <input ref={quantityRemoveInput} onChange={handleChange} className="quantity" name="quantityOfSelectedSpecies" type="number" placeholder={quantityRemove}/>
-            <Button onClick={() => removeSpecies()} title="Remove"/>
-            <Button title="Next" onClick={() => onNext()} className="nextButton" routename="/advice"/>
+            <div className="selectionContainer speciesAddContainer">
+                <label className="selectHeading" htmlFor={"speciesAdd"}>Choose Fish Species</label>
+                <SelectList name="speciesAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd} items={sampleOptions} />
+                <div className="quantityInputs">
+                    <div className="quantityNumber">
+                        <label className="quantityHeading" htmlFor="quantityOfSpecies">Quantity</label>
+                        <input ref={quantityAddInput} onChange={handleChange} className="quantity" name="quantityOfSpecies" type="number" placeholder={quantityAdd}/>                       
+                    </div>
+                   <Button className="addButton quantityButton" onClick={() => addSpecies()} title="Add"/>
+                </div>
+            </div>
+            
+            <div className="selectionContainer speciesRemoveContainer">
+                <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
+                <SelectList name="speciesRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} items={sampleOptions} 
+                    items= {selectedSpecies.map((species) =>(
+                        {
+                            name:`${species.quantity}x ${species.name}`, 
+                            value: species.value,
+                            scientificName: species.scientificName
+                        }
+                        ))} />
+                <div className="quantityInputs">
+                    <div className="quantityNumber">
+                        <label className="quantityHeading" htmlFor="quantityOfSelectedSpecies">Quantity</label>
+                        <input ref={quantityRemoveInput} onChange={handleChange} className="quantity" name="quantityOfSelectedSpecies" type="number" placeholder={quantityRemove}/>
+                    </div>
+                    <Button className="removeButton quantityButton" onClick={() => removeSpecies()} title="Remove"/>
+                </div>
+            </div>
+            
+            <Button title="Next" onClick={() => onNext()} className="nextButton stockingNextButton"/>
         </div>
     )
 }

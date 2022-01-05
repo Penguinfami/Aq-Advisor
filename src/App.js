@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './static/Mobile.css';
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
