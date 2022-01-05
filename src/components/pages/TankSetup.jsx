@@ -70,7 +70,7 @@ const TankSetup = (props) => {
             <TitleHeader/>
             
             <div className="dimensionsSelect selectionContainer">
-                <label className="selectHeading" htmlFor="dimensions">Choose Tank Dimensions</label>
+                <label className="selectHeading" htmlFor="dimensions">Tank Dimensions</label>
                 <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
                     name="dimensions" options={[{value: null, name:"Choose..."},...props.dimensionsList]}/>   
             </div>

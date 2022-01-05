@@ -27,6 +27,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.308);
+    animation: none;
   }
 
  
@@ -111,8 +112,9 @@
     margin: 0.5rem;
     display: flex;
     flex-flow: column wrap;
-    align-items: center; 
-    width: 80%;
+    align-items: stretch; 
+    width: 16.5625rem;
+    max-width: 70vw;
   }
 
   
@@ -128,14 +130,13 @@
   }
   
   select {
-    width: 16.5625rem;
-    max-width: 70vw;
     border-radius: 0.8rem;
     height: 2.3rem;
     padding-top: 0.2rem;
     vertical-align: middle;
     text-align: center;
     font-size: 1.125rem;
+    width: 100%;
   }
   
   input, select, .selectList {
@@ -160,8 +161,8 @@
   }
 
   .selectListItems::-webkit-scrollbar{
-    width: 0.3rem;
-}
+    width: 0.5rem;
+  }
 
   .selectListItems{
     overflow-y: scroll;
