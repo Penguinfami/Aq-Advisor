@@ -9,12 +9,13 @@ const Home = (props) => {
 
     const navigate = useNavigate();
 
+
     return (
         <div id="homepage" className="page">
             <TitleHeader/>
             <span className="subheading">Welcome to My AqAdvisor!</span>
             <input ref={nameInputBox} onChange={() => props.updateInput(nameInputBox.current.value, props.name, props.setName)} className="nameInput" type="text" placeholder={ props.name !== '' ? props.name : `Enter your name...`}/>
-            <Button onClick={() => navigate(props.nextPage)} className="nextButton" title="Next"/>
+            <Button onClick={() => props.onNext().then(navigate(props.nextPage))} className="nextButton" title="Next"/>
         </div>
     )
 }

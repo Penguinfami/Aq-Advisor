@@ -2,7 +2,7 @@ import Button from './Button'
 
 const Error = (props) => {
     return (
-        <div className="errorMessageBackground modal d-block">
+        <div className="errorMessageBackground modal d-block page">
             <div className="modal-dialog errorDialog">
                 <div className="modal-content errorContent">
                     <div className="errorHeading">{props.heading}</div>

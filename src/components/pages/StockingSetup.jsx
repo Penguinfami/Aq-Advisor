@@ -79,9 +79,9 @@ const StockingSetup = (props) => {
         console.log(e.target);
         switch (name) {
             case 'chooseSpeciesListAdd':
-                setSpeciesToAdd(sampleOptions.filter((species) => (species.value === value))[0]); break;
+                setSpeciesToAdd(props.speciesList.filter((species) => (species.value === value))[0]); break;
             case 'chooseSpeciesListRemove':
-                setSpeciesToRemove(selectedSpecies.filter((species) => (species.value === value))[0]); break;                
+                setSpeciesToRemove(props.speciesList.filter((species) => (species.value === value))[0]); break;                
             case 'quantityOfSpecies' : 
                 setQuantityAdd(value); break;
             case 'quantityOfSelectedSpecies' : 
@@ -175,7 +175,7 @@ const StockingSetup = (props) => {
             <TitleHeader/>
             <div className="selectionContainer speciesAddContainer">
                 <label className="selectHeading" htmlFor={"speciesAdd"}>Choose Fish Species</label>
-                <SelectList name="speciesAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd} items={sampleOptions} />
+                <SelectList name="speciesAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd} items={props.speciesList} />
                 <div className="quantityInputs">
                     <div className="quantityNumber">
                         <label className="quantityHeading" htmlFor="quantityOfSpecies">Quantity</label>
@@ -187,7 +187,7 @@ const StockingSetup = (props) => {
             
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
-                <SelectList name="speciesRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} items={sampleOptions} 
+                <SelectList name="speciesRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} items={props.speciesList} 
                     items= {selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 

@@ -33,7 +33,7 @@
   .errorContent {
     margin: 30% auto;
     width: 80% !important;
-    padding: 2rem;
+    padding: 10%;
     text-align: center;
     background-color: rgb(223, 243, 255) !important;
     border: 0.2rem solid var(--mainInputColour) !important;
@@ -111,7 +111,10 @@
     margin: 0.5rem;
     display: flex;
     flex-flow: column wrap;
+    align-items: center; 
+    width: 80%;
   }
+
   
   .selectOption {
     display: flex;
@@ -126,7 +129,7 @@
   
   select {
     width: 16.5625rem;
-    max-width: 85vw;
+    max-width: 70vw;
     border-radius: 0.8rem;
     height: 2.3rem;
     padding-top: 0.2rem;
@@ -140,10 +143,6 @@
     border: 0.3rem solid var(--mainInputColour);
   }
 
-  .selectionContainer {
-    align-items: center; 
-    width: 80%;
-  }
 
 
   .selectList {

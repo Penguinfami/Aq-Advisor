@@ -1,13 +1,13 @@
-import Button from './Button';
-
+import Button from '../partials/Button';
 const Buffer = () => {
     return (
-        <div className="bufferScreen modal d-block">
+        <div className="bufferScreen modal d-block page">
             <div className="bufferContent modal-content">
                 <div className="modal-body">
                     Loading your stuff..
                 </div>
             </div>
+
         </div>
     )
 }
