@@ -30,9 +30,12 @@
     animation: none;
   }
 
- 
+  .errorDialog {
+    vertical-align: center;
+  }
+
   .errorContent {
-    margin: 30% auto;
+    margin: auto;
     width: 80% !important;
     padding: 10%;
     text-align: center;
@@ -210,6 +213,8 @@
       justify-content: space-between;
       align-items: flex-end;
       width: 80%;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: -3rem;
       background-color: rgba(240, 248, 255, 0.315);
   }
