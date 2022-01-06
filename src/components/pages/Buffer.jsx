@@ -1,4 +1,3 @@
-import Button from '../partials/Button';
 const Buffer = (props) => {
     return (
         <div className = "page">

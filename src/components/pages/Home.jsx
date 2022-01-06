@@ -1,6 +1,6 @@
 import TitleHeader from '../partials/TitleHeader'
 import Button from '../partials/Button';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = (props) => {

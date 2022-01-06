@@ -3,23 +3,6 @@ import Button from "../partials/Button"
 import { useNavigate } from 'react-router-dom';
 const Advice = (props) => {
 
-    const exampleAdvice = {
-
-        "warnings" : [ 
-            {
-                "id" : 1,
-                "message" : "Raphael Catfish is not recommended for your tank - it may eventually outgrow your tank space, potentially reaching up to 7 inches."
-            }
-        ],
-        "suggestions" : [
-            {
-                "id" : 1,
-                "message" : "If you want to keep more than 1 Sunset Platy, minimum recommend male to female ratio is 1:2 (M:F). You will be less likely to experience problem if you get even more females."
-
-            }
-        ]
-    }
-
     const navigate = useNavigate();
 
     return (

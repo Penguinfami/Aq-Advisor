@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import './static/Mobile.css';
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react';
-import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from 'react-router-dom';
+import { useState} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './components/pages/Home';
 import TankSetup from './components/pages/TankSetup';
 import StockingSetup from './components/pages/StockingSetup';
