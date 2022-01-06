@@ -25,19 +25,25 @@ function App() {
   }
 
   const [aqAdvisorData, setAqAdvisorData] = useState({});
+  const [aqAdvisorResults, setAqAdvisorResults] = useState({});
+
   const [name, setName] = useState("");
   const [filters, setFilters] = useState([]);
   const [dimensions, setDimensions] = useState({});
-  const [stocking, setStocking] = useState([[]]);
+  const [stocking, setStocking] = useState([]);
   const [advice, setAdvice] = useState([{}]);
   const [buffer, toggleBuffer] = useState(false);
+  const [bufferMessage, setBufferMessage] = useState("");
 
   const [errorMessage, toggleErrorMessage] = useState(false);
   const [errorMessageContent, setErrorMessageContent] = useState("");
 
   const [dataFetched, setDataFetched] = useState(false);
+  const [resultsFetched, setResultsFetched] = useState(false);
 
   const api =  new Api();
+  const apiData = require('./apiData.json');
+
   const resultsLogic = new ResultsLogic();
   const dom = new DOMConverter();
 
@@ -48,15 +54,17 @@ function App() {
     if (dataFetched) return;
 
     console.log("fetching");
-
+    setBufferMessage("Fetching fish database from www.aqadvisor.com...");
     toggleBuffer(true);
 
     let data = '';
 
+
+    // for fetching live fish database. currently removed to limit number of API calls
     /**const data = await api.getData("https://scrapingant.p.rapidapi.com/get?url=http%3A%2F%2Fwww.aqadvisor.com%2F&response_format=json", 
       {
-        "x-rapidapi-host": "scrapingant.p.rapidapi.com",
-        "x-rapidapi-key": "437c9ccfc2mshaadabe75763183cp1eaf97jsnc665d637d972"       
+        "x-rapidapi-host": apiData.APIHost,
+        "x-rapidapi-key": "apiData.APIKey       
       }
     );*/
 
@@ -83,7 +91,7 @@ function App() {
 
     setDataFetched(true);
     toggleBuffer(false);
-    console.log("end of fetch data function");
+
   }
 
   // Since the web scraping API has limited amount of calls per month and I'm broke as hell, can fetch from pre-existing static database instead
@@ -92,20 +100,87 @@ function App() {
     if (dataFetched) return;
 
     toggleBuffer(true);
-
+    setBufferMessage("Fetching static database");
     const staticData = require('./staticData.json');
     console.log(staticData);
     let dataLogic = new DatabaseLogic();
     console.log(staticData.tanks);
     let dList = dataLogic.dimensions(staticData.tanks, staticData.lengths, staticData.depths, staticData.heights);
 
-    let fList = dataLogic.filters(staticData.filters);
+    let fList = dataLogic.filters(staticData.filters, staticData.filterCapacity);
 
     let sList = dataLogic.species(staticData.species);
 
     setAqAdvisorData({ dimensionsList: dList, filtersList: fList, speciesList: sList })
 
     setDataFetched(true);
+    toggleBuffer(false);
+
+  }
+
+  const fetchResults = async () => {
+    
+    if (resultsFetched) return;
+
+    // logic class
+    let resultsLogic = new ResultsLogic(dom);
+
+    let numFilters = 2;
+    let filter2, filterRate2;
+    if (!filters[1]){
+      numFilters = 1;
+    } else {
+      numFilters = 2;
+      filter2 = filters[1].name;
+      filterRate2 = filters[1].capacity;
+    }
+
+    let input = {
+      tank : dimensions.name,
+      height: dimensions.height,
+      length: dimensions.length,
+      depth: dimensions.depth,
+      filter1: filters[0].name,
+      filter2: filter2,
+      filterRate1: filters[0].capacity,
+      filterRate2: filterRate2,
+      filterQuantity: numFilters,
+      stocking: stocking
+    }
+
+    let url = resultsLogic.createURL(input);
+
+    toggleBuffer(true);
+    setBufferMessage("Fetching results from www.aqadvisor.com. This may take a moment.");
+
+    const data = await api.getData(url, 
+      {
+        "x-rapidapi-host": apiData.APIHost,
+        "x-rapidapi-key": apiData.APIKey       
+      }
+    )
+
+    if (data == ""){
+      toggleErrorMessage(true);
+      setErrorMessageContent("There was a problem fetching the live results from www.aqadvisor.com. Sorry about that :(");
+      return;
+    } 
+    
+    dom.parse(data.content);
+
+    let wList = resultsLogic.warnings();
+
+    let sList = resultsLogic.suggestions();
+
+    let rList = resultsLogic.ranges();
+
+    let pList = resultsLogic.percentages();
+
+    let capacityComment = resultsLogic.capacityComment();
+
+    setAqAdvisorResults({ warnings: wList, suggestions: sList, ranges: rList, percentages: pList, filtrationCapacityComment: capacityComment })
+
+    setResultsFetched(true);
     toggleBuffer(false);
 
   }
@@ -125,12 +200,12 @@ function App() {
                 <Route path="/" element={<Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>}></Route>
                 <Route path="/home" element={<Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>}></Route>
                 <Route path="/tank" element={<TankSetup dimensionsList={aqAdvisorData.dimensionsList} filtersList={aqAdvisorData.filtersList} prevPage="/home" nextPage="/stocking" dimensions={dimensions} setDimensions={setDimensions} filters={filters} setFilters={setFilters}/>}></Route>
-                <Route path="/stocking" element={<StockingSetup speciesList={aqAdvisorData.speciesList} prevPage="/tank" nextPage="/advice" updateInput={updateInput} stocking={stocking} setStocking={setStocking}/>}></Route>
-                <Route path="/advice" element={<Advice prevPage="/stocking" nextPage="/results" advice={advice} />}></Route>
-                <Route path="/results" element={<Results prevPage="/advice" />}></Route>                              
+                <Route path="/stocking" element={<StockingSetup onNext={async () => fetchResults()} speciesList={aqAdvisorData.speciesList} prevPage="/tank" nextPage="/advice" updateInput={updateInput} selectedSpecies={stocking} setSelectedSpecies={setStocking}/>}></Route>
+                <Route path="/advice" element={<Advice prevPage="/stocking" nextPage="/results" advice={{warnings: aqAdvisorResults.warnings, suggestions: aqAdvisorResults.suggestions }} />}></Route>
+                <Route path="/results" element={<Results prevPage="/advice" species={[...stocking]} dimensions={dimensions} filters={[...filters]} results={{ranges: aqAdvisorResults.ranges, percentages: aqAdvisorResults.percentages, filtrationCapacityComment: aqAdvisorResults.filtrationCapacityComment}}/>}></Route>                              
             </Routes>   
             : <Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>    
-            : <Buffer/>
+            : <Buffer message={bufferMessage}/>
           }
       </Router>
       <Footer/>

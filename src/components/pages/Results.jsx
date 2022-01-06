@@ -50,33 +50,41 @@ const Results = (props) => {
             <div className="inputSummary">
                 <p className="inputSummaryText">
                     For a 
-                    <span className="inputSummarySpecific"> {exampleInput.dimensions}</span> aquarium with filters 
-                    {exampleInput.filters.map((filter) => <span key={filter.value} className="inputSummarySpecific">{` ${filter}, `}</span>)} containing
-                    {exampleInput.stocking.map((species, index) => <span key={species.value} className="inputSummarySpecific">{` ${species}${ index !== exampleInput.stocking.length - 1 ? "," : ""}`}</span>)}:
+                    <span className="inputSummarySpecific"> {props.dimensions.name}</span> aquarium with filters 
+                    {props.filters.map((filter, index) => filter ? <span key={index} className="inputSummarySpecific"> {filter.name}, </span> : null)}
+                    containing 
+                    {props.species.map((species, index) => species ? <span key={index} className="inputSummarySpecific">{` ${species.quantity}x ${species.name}${index !== props.species.length - 1 ? ',' : ':'}`}</span>: null)}
                 </p>
             </div>
             <div className="resultsDisplay">
                 <div className="recommendationsTable">
                     {
-                        exampleResults.ranges.map((range) => (
-                            <div key={range.title} className="recommendation">
-                                <div className="recommendationTitle">
-                                    {range.title}
-                                </div>
-                                <div className="recommendationValue">
-                                    {range.value}
-                                </div>
-                            </div>
+                        props.results.ranges.map((range) => (
+                             range.value !== null ?
+                                <div key={range.title} className="recommendation">
+                                    <div className="recommendationTitle">
+                                        {range.title}:
+                                    </div>
+                                    <div className="recommendationValue">
+                                        {range.value}
+                                    </div>
+                                </div> 
+                            :
+                            <div className="recommendation recommendationComment">{range.title}</div>                         
+                            
                         ))
                     }
                 </div>
                 <div className="filtrationCapacityComment">
-                    {exampleResults.filtrationCapacityComment}
+                    {props.results.filtrationCapacityComment}
                 </div>
                 <div className="recommendationsTable">
                 {
-                        exampleResults.percentages.map((percentage) => (
-                            <div className="recommendation">
+                        props.results.percentages.map((percentage) => (
+
+                            percentage.value !== null ? 
+
+                            <div key={percentage.title} className="recommendation">
                                 <div className="recommendationTitle">
                                     {percentage.title}
                                 </div>
@@ -84,6 +92,8 @@ const Results = (props) => {
                                     {percentage.value}
                                 </div>
                             </div>
+
+                            : <div className="recommendation recommendationComment">{percentage.title}</div>
                         ))
                     }               
                 </div>

@@ -5,7 +5,7 @@ class DatabaseLogic {
     }
 
     createValueFromName(givenName = ""){
-        let value = givenName.replace(" ", "").toLowerCase();
+        let value = givenName.replaceAll(" ", "").toLowerCase();
         return value;
     }
 
@@ -22,11 +22,11 @@ class DatabaseLogic {
 
     dimensions(lst = [], lengthLst = null, depthLst = null, heightLst = null){
         
-        let optionsList;
+        let optionsList = [];
         let startIndex = 0;
-        let lengthArray;
-        let depthArray;
-        let heightArray;
+        let lengthArray = [];
+        let depthArray = [];
+        let heightArray = [];
 
         if (lst.length === 0){
             console.log(lst);
@@ -57,9 +57,9 @@ class DatabaseLogic {
                 newDimension = {
                     name : option.trim(),
                     value : this.createValueFromName(option),
-                    length: parseInt(lengthArray[i - startIndex]),
-                    depth: parseInt(depthArray[i - startIndex]),
-                    height: parseInt(heightArray[i - startIndex])
+                    length: lengthArray[i - startIndex],
+                    depth: depthArray[i - startIndex],
+                    height: heightArray[i - startIndex]
                 }
     
             } else {
@@ -78,19 +78,22 @@ class DatabaseLogic {
     }
 
 
-    filters(lst = null){
+    filters(lst = null, capacityLst = []){
 
         let optionsList;
+        let filterCapacityList;
         let startIndex = 0;
         if (lst === null){
             optionsList = this.model.getStringArrayFromHTMLString("myFilterNames=new Array('", ");", "','");
+            filterCapacityList = this.model.getStringArrayFromHTMLString("myFilterCapacity=new Array('", ");", "','");
             if (!optionsList){
                 startIndex = 2;
                 optionsList = this.getOptionsList('AquListBoxFilter');
             }
 
         } else {
-            optionsList = lst
+            optionsList = lst;
+            filterCapacityList = capacityLst;
         }
 
         let arr = [];
@@ -99,7 +102,8 @@ class DatabaseLogic {
             let option = optionsList[i];
             let newFilter = {
                 name : option.trim(),
-                value : this.createValueFromName(option)
+                value : `${this.createValueFromName(option)}${i}`,
+                capacity: filterCapacityList[i - startIndex]
             }
             arr.push(newFilter);
         }
@@ -127,7 +131,7 @@ class DatabaseLogic {
             let newSpecies = {
                 name : names[0],
                 scientificName: names[1],
-                value : this.createValueFromName(option)
+                value : `${this.createValueFromName(option)}${i}`
             }
             arr.push(newSpecies);
         }

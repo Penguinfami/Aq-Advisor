@@ -16,13 +16,15 @@ const TankSetup = (props) => {
         const {name, value} = e.target;
         console.log(value);
         switch (name) {
-            case 'dimensions' : 
-                props.setDimensions(props.dimensionsList.filter((option) => option.value === value)[0]); break;
+            case 'dimensions' :
+                props.setDimensions(props.dimensionsList.filter((option) => option.name === value)[0]); break;
             case 'filter1' : 
-                 props.setFilters([props.filtersList.filter((option) => option.value === value)[0], props.filters[1]]); break;
+                 props.setFilters([props.filtersList.filter((option) => option.name === value)[0], props.filters[1]]); break;
             case 'filter2' :  
-                props.setFilters([props.filters[0], props.filtersList.filter((option) => option.value === value)[0]]); break;
+                props.setFilters([props.filters[0], props.filtersList.filter((option) => option.name === value)[0]]); break;
         }
+        console.log(value);
+        console.log('filters ' + props.filters[0].name)
     }
 
     const onNext = () => {
@@ -50,7 +52,7 @@ const TankSetup = (props) => {
             
             <div className="dimensionsSelect selectionContainer">
                 <label className="selectHeading" htmlFor="dimensions">Tank Dimensions</label>
-                <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
+                <OptionSelect selected={ props.dimensions ? props.dimensions.name : null } onChange={handleChange}
                     name="dimensions" options={[{value: null, name:"Choose..."},...props.dimensionsList]}/>   
             </div>
             <div className="measurements">               
@@ -76,13 +78,13 @@ const TankSetup = (props) => {
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
                 <OptionSelect onChange={handleChange}
-                    name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{value: null, name:"Choose..."},...props.filtersList]}/>
+                    name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{value: null, name:"Choose...", capacity: null},...props.filtersList]}/>
                 <Button className="text-decoration-none smallWhy" title="Why?"/>
             </div>
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter2">Choose Filter 2</label>
                 <OptionSelect selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
-                    name="filter2" heading="Choose Filter 2" options={[{value: null, name:"Choose..."}, ...props.filtersList]}/>
+                    name="filter2" heading="Choose Filter 2" options={[{value: null, name:"Choose...", capacity: null}, ...props.filtersList]}/>
             </div>
             <Button title="Next" className="nextButton" onClick={() => onNext()}/>
         </div>

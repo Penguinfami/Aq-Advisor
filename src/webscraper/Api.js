@@ -11,10 +11,9 @@ class Api {
             "headers": headers
           })
           .then(response => response.json())
-          .then(data =>{
-              console.log(data);
-              console.log(data);
-              this.contents = data;
+          .then(data => {
+            console.log(data);
+            this.contents = data;
           })
           .catch(err => {
             console.log("error fetching");

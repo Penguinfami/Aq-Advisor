@@ -8,50 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const StockingSetup = (props) => {
 
-    const sampleOptions = [
-        {
-            "value": "sunsetplaty",
-            "name": "Sunset Platy",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "corycatfish",
-            "name": "Cory Catfish",
-            "scientificName": "fivo gallonus"
-
-        },
-        {
-            "value": "molly",
-            "name": "Molly",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "cherrybarb1",
-            "name": "Cherry Barb1",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "cherrybarb2",
-            "name": "Cherry Barb2",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "cherrybarb3",
-            "name": "Cherry Barb3",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "cherrybarb4",
-            "name": "Cherry Barb4",
-            "scientificName": "fivo gallonus"
-        },
-        {
-            "value": "cherrybarb5",
-            "name": "Cherry Barb5",
-            "scientificName": "fivo gallonus"
-        },
-    ]
-
     const sampleSelected = 
         [{
                 "value": "sunsetplaty",
@@ -72,7 +28,7 @@ const StockingSetup = (props) => {
     const [speciesToRemove, setSpeciesToRemove] = useState(null);
     const [quantityAdd, setQuantityAdd] = useState(1);
     const [quantityRemove, setQuantityRemove] = useState(1);
-    const [selectedSpecies, setSelectedSpecies] = useState([]);
+    //const [props.selectedSpecies, props.props.selectedSpecies] = useState([]);
     
     function handleChange(e){
         const {name, value} = e.target;
@@ -97,9 +53,14 @@ const StockingSetup = (props) => {
         } else if (quantityAdd < 1) {
             toggleErrorMessage(true)
             setErrorMessageContent("The quantity to add must be 1 or greater")  
+        } else if (props.selectedSpecies.length > 1){
+            toggleErrorMessage(true)
+            setErrorMessageContent("Due to reliance on API calls every time a new species is added, only 1 species can be selected at a time.");             
         }
+
+        if (errorMessage) return;
         let alreadyAdded = false;
-        setSelectedSpecies(selectedSpecies.map(
+        props.setSelectedSpecies(props.selectedSpecies.map(
             (species) => {
                 if (species.value === speciesToAdd.value){
                     alreadyAdded = true;
@@ -116,7 +77,7 @@ const StockingSetup = (props) => {
                 scientificName: speciesToAdd.scientificName,
                 quantity: quantityAdd
             }
-            setSelectedSpecies([...selectedSpecies, newSpeciesEntry ]);
+            props.setSelectedSpecies([...props.selectedSpecies, newSpeciesEntry ]);
         }
         setQuantityAdd(1);
         quantityAddInput.current.value = 1;
@@ -132,7 +93,7 @@ const StockingSetup = (props) => {
             setErrorMessageContent("The quantity to remove must be 1 or greater.")  
         }
 
-        let newSpeciesList = selectedSpecies.map(
+        let newSpeciesList = props.selectedSpecies.map(
                 (species) => {
                 if (species.value === speciesToRemove.value){
                     if (species.quantity < quantityRemove) {
@@ -153,18 +114,23 @@ const StockingSetup = (props) => {
             console.log("error");
             return;
         };
-        setSelectedSpecies(newSpeciesList.filter((species) => parseInt(species.quantity) >= 1));
+        props.setSelectedSpecies(newSpeciesList.filter((species) => parseInt(species.quantity) >= 1));
         console.log(quantityRemove)
         setQuantityRemove(1);
         quantityRemoveInput.current.value = 1;
     }
 
-    const onNext = () => {
-        if (selectedSpecies.length < 1) {
+    const onNext = async () => {
+        if (props.selectedSpecies.length < 1) {
             toggleErrorMessage(true);
             setErrorMessageContent("No fish species have been added.")
             return;
         } 
+        //props.setSelectedSpecies(props.selectedSpecies.map((species) => species));
+        console.log("before await");
+        console.log('on next');
+        const next = await props.onNext();
+        console.log('next page');
         navigate(props.nextPage);
     }
 
@@ -188,7 +154,7 @@ const StockingSetup = (props) => {
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
                 <SelectList name="speciesRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} items={props.speciesList} 
-                    items= {selectedSpecies.map((species) =>(
+                    items= {props.selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 
                             value: species.value,
@@ -204,7 +170,8 @@ const StockingSetup = (props) => {
                 </div>
             </div>
             
-            <Button title="Next" onClick={() => onNext()} className="nextButton stockingNextButton"/>
+            <Button title="Next" onClick={async () => await onNext()} className="nextButton stockingNextButton"/>
+            
         </div>
     )
 }

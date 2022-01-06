@@ -4,6 +4,14 @@ class DOMConverter {
         this.parser = new DOMParser()
     }
 
+    setElements(htmlObj){
+        let html = htmlObj.outerHTML;
+        let data = {html: html};
+        let json = JSON.stringify(data.html);
+        this.parse(json);
+        console.log(this.elements);
+    }
+
     parse(htmlString){
         this.elements = this.parser.parseFromString(htmlString, "text/html")
         this.parsedString = htmlString;
@@ -26,26 +34,40 @@ class DOMConverter {
 
         let childElements = [];
         if (list.length === 0){
-            childElements = this.elements.childNodes;
+            childElements = this.getElementsByTagName("*");
         } else {
-            childElements = list.childNodes;
+            childElements = list;
         }
         for (let i = 0; i < childElements.length; i++){
             let child = childElements[i];
-            if (child.childNodes.length === 1 && child.innerText.contains(text)){
+            if (child.childNodes.length === 1 && child.innerText.includes(text)){
                 arr.push(child.innerText);
             }
         }
+
         
         return arr;
     }
 
-    getInnerTextList(list){
+    getInnerTextList(list = []){
         let arr = [];
+        if (list === []) {
+            list = this.getElementsByTagName("*");
+        }
         for (let i = 0; i < list.length; i++){
             arr.push(list[i].innerText);
         }
         return arr;
+    }
+
+    getDOMInnerTestList(){
+        let arr = []; 
+
+        let childElements =  this.getElementsByTagName("*");
+
+        for ( let i = 0; i < childElements.length; i++){
+            let child = childElements[i];
+        }
     }
 
     getOptions(select){
@@ -54,20 +76,23 @@ class DOMConverter {
 
     getElementByInnerText(text){
 
-        let childElements =  this.elements.childNodes;
+        let childElements =  this.getElementsByTagName("*");
        
-        for (let i = 0; i < childElements.length; i++){
+        for (let i = childElements.length - 1; i >= 0; i++){
             let child = childElements[i];
-            if (child.childNodes.length === 1 && child.innerText.contains(text)){
+            if (child.innerText.includes(text)){
                 return child;
             }
         }
-         
         return null;
     }
 
     getNextSiblingInnerText(element){
         return element.nextSibling.innerText;
+    }
+
+    getPreviousSiblingInnerText(element){
+        return element.previousSibling.innerText;
     }
 
     getStringArrayFromHTMLString(arrayStartIdentifier, endIdentifier, separator){

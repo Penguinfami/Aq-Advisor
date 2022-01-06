@@ -1,14 +1,18 @@
 import Button from '../partials/Button';
-const Buffer = () => {
+const Buffer = (props) => {
     return (
-        <div className="bufferScreen modal d-block page">
-            <div className="bufferContent modal-content">
-                <div className="modal-body">
-                    Loading your stuff..
+        <div className = "page">
+            <div className="bufferScreen d-block">
+                <div className="modal-dialog bufferDialog">
+                    <div className="bufferContent modal-content">
+                        <div className="modal-body">
+                            {props.message}
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
+
     )
 }
 
