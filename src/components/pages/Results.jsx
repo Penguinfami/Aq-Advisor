@@ -8,7 +8,7 @@ const Results = (props) => {
 
     const reset = () => {
         navigate(props.nextPage);
-        props.reset();
+        props.onReset();
     }
 
     return (
