@@ -297,7 +297,7 @@
     color: red;
   }
   
-  .warningMessage {
+  .warningMessage, .recommendationComment {
     color: #9C0000;
   }
   

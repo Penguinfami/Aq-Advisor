@@ -3,7 +3,7 @@ import './App.css';
 import './static/Mobile.css';
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
-import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from 'react-router-dom';
 import Home from './components/pages/Home';
 import TankSetup from './components/pages/TankSetup';
 import StockingSetup from './components/pages/StockingSetup';
@@ -31,10 +31,9 @@ function App() {
   const [filters, setFilters] = useState([]);
   const [dimensions, setDimensions] = useState({});
   const [stocking, setStocking] = useState([]);
-  const [advice, setAdvice] = useState([{}]);
+  
   const [buffer, toggleBuffer] = useState(false);
   const [bufferMessage, setBufferMessage] = useState("");
-
   const [errorMessage, toggleErrorMessage] = useState(false);
   const [errorMessageContent, setErrorMessageContent] = useState("");
 
@@ -47,8 +46,6 @@ function App() {
   const resultsLogic = new ResultsLogic();
   const dom = new DOMConverter();
 
-  const strURL = "http://www.aqadvisor.com/AqAdvisor.php?AquTankName=Christine&AquListBoxTank=Choose&AquTankLength=15&AquTankDepth=8&AquTankHeight=14&AquListBoxFilter=Aqua+FX+SPR-1800&AquTextFilterRate=118.8+&AquListBoxFilter2=Choose&AquTextFilterRate2=N%2FA+&AquFilterString=&AquListBoxChooser=Albino+Bristlenose+Pleco+%28Ancistrus+cf.+cirrhosus%29&AquTextBoxQuantity=13&FormSubmit=Add+%3E&AquTextBoxRemoveQuantity=&AlreadySelected=200909300001%3A1%3A%3A%2C200911261032%3A1%3A%3A&FilterMode=Display+all+species&AqTempUnit=C&AqVolUnit=gUS&AqLengthUnit=inch&AqSortType=cname&FilterQuantity=2&AqJuvMode=&AqSpeciesWindowSize=short&AqSearchMode=simple";
-
   const fetchDatabase = async () => {
     
     if (dataFetched) return;
@@ -58,7 +55,6 @@ function App() {
     toggleBuffer(true);
 
     let data = '';
-
 
     // for fetching live fish database. currently removed to limit number of API calls
     /**const data = await api.getData("https://scrapingant.p.rapidapi.com/get?url=http%3A%2F%2Fwww.aqadvisor.com%2F&response_format=json", 
@@ -190,6 +186,14 @@ function App() {
     console.log(state)
   };
 
+  const reset = () => {
+    setName("");
+    setFilters([]);
+    setDimensions({})
+    setStocking([]);
+    setResultsFetched(false);
+  }
+
   return (
     <div className="App">
       <Router>
@@ -202,7 +206,7 @@ function App() {
                 <Route path="/tank" element={<TankSetup dimensionsList={aqAdvisorData.dimensionsList} filtersList={aqAdvisorData.filtersList} prevPage="/home" nextPage="/stocking" dimensions={dimensions} setDimensions={setDimensions} filters={filters} setFilters={setFilters}/>}></Route>
                 <Route path="/stocking" element={<StockingSetup onNext={async () => fetchResults()} speciesList={aqAdvisorData.speciesList} prevPage="/tank" nextPage="/advice" updateInput={updateInput} selectedSpecies={stocking} setSelectedSpecies={setStocking}/>}></Route>
                 <Route path="/advice" element={<Advice prevPage="/stocking" nextPage="/results" advice={{warnings: aqAdvisorResults.warnings, suggestions: aqAdvisorResults.suggestions }} />}></Route>
-                <Route path="/results" element={<Results prevPage="/advice" species={[...stocking]} dimensions={dimensions} filters={[...filters]} results={{ranges: aqAdvisorResults.ranges, percentages: aqAdvisorResults.percentages, filtrationCapacityComment: aqAdvisorResults.filtrationCapacityComment}}/>}></Route>                              
+                <Route path="/results" element={<Results prevPage="/advice" nextPage="/home" onReset={reset} species={[...stocking]} dimensions={dimensions} filters={[...filters]} results={{ranges: aqAdvisorResults.ranges, percentages: aqAdvisorResults.percentages, filtrationCapacityComment: aqAdvisorResults.filtrationCapacityComment}}/>}></Route>                              
             </Routes>   
             : <Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>    
             : <Buffer message={bufferMessage}/>

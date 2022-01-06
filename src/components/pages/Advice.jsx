@@ -24,10 +24,9 @@ const Advice = (props) => {
 
     return (
         <div className="page">
-            <Button onClick={() => navigate(props.prevPage)} title="Back" className="backButton"/>
             <TitleHeader/>
             {props.advice.warnings.length === 0 && props.advice.suggestions.length === 0 ?
-                <div>You have no warnings for this combination of species together.</div>
+                <div className="m-2">You have no warnings for this combination of species together.</div>
                 : null 
             }
             {props.advice.warnings.length > 0 ?

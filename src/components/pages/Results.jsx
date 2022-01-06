@@ -4,44 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 const Results = (props) => {
 
-    const exampleInput = {
-        "dimensions": "29g high",
-        "filters" : ["Aqueon Quietflow 20"],
-        "stocking": ["5x Sunset Platy", "5x Talking Catfish"]
-    }
-
-    const exampleResults = {
-        "ranges" : [
-            {
-                "title" : "Recommended Temperature Range",
-                "value" : "18-25C"
-            },
-            {
-                "title" : "Recommended pH Range",
-                "value" : "5.5-78"
-            },            {
-                "title" : "Recommended Hardness Range",
-                "value" : "1-15 dH"
-            }           
-        ],
-        "filtrationCapacityComment" : "You have plenty of aquarium filtration capacity",
-        "percentages" : [
-            {
-                "title" : "Your aquarium filtration capacity is:",
-                "value" : "219%"
-            },
-            {
-                "title" : "Recommended Water Change Schedule is:",
-                "value" : "9% per week"
-            },
-            {
-                "title" : "Your aquarium stocking level is:",
-                "value" : "46%"
-            }
-        ]
-    }
-
     const navigate = useNavigate();
+
+    const reset = () => {
+        navigate(props.nextPage);
+        props.reset();
+    }
 
     return (
         <div className="page">
@@ -70,7 +38,7 @@ const Results = (props) => {
                                     </div>
                                 </div> 
                             :
-                            <div className="recommendation recommendationComment">{range.title}</div>                         
+                            <div key={range.title} className="recommendation recommendationComment">{range.title}</div>                         
                             
                         ))
                     }
@@ -87,19 +55,22 @@ const Results = (props) => {
                             <div key={percentage.title} className="recommendation">
                                 <div className="recommendationTitle">
                                     {percentage.title}
+                                    {percentage.title.trim().slice(percentage.title.length - 2) !== ':' ? ':' : null}
                                 </div>
                                 <div className="recommendationValue">
                                     {percentage.value}
                                 </div>
                             </div>
 
-                            : <div className="recommendation recommendationComment">{percentage.title}</div>
+                            : <div key={percentage.title} className="recommendation recommendationComment">{percentage.title}</div>
                         ))
                     }               
                 </div>
             </div>
 
             <Button className="spreadsheetButton" title="Generate Spreadsheet" onClick={() => alert("Spreadsheet Generated!")}/>           
+            <Button onClick={() => reset()} title="Start over" className="backButton"/>
+
         </div>
     )
 }

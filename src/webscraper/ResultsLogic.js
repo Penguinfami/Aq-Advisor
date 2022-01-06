@@ -127,7 +127,7 @@ class ResultsLogic {
                     }
                 }
                 let sTitle = s.replace(percent, "").trim();
-                arr.push({title: sTitle, value: percent});
+                arr.push({title: sTitle.replace(".", ""), value: percent});
             } else {
                 arr.push({title: s.trim(), value: null});
             }
