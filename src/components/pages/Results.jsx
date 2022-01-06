@@ -1,6 +1,7 @@
 import TitleHeader from "../partials/TitleHeader";
 import Button from "../partials/Button";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 const Results = (props) => {
 
@@ -16,7 +17,7 @@ const Results = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    })
+    }, [])
 
     return (
         <div className="page">

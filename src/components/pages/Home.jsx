@@ -1,6 +1,6 @@
 import TitleHeader from '../partials/TitleHeader'
 import Button from '../partials/Button';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = (props) => {
@@ -14,7 +14,7 @@ const Home = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    })
+    },[])
 
     return (
         <div id="homepage" className="page">

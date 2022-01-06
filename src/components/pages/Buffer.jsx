@@ -1,4 +1,5 @@
 import TitleHeader from '../partials/TitleHeader';
+import { useEffect } from 'react';
 
 const Buffer = (props) => {
     

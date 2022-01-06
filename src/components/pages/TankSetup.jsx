@@ -47,7 +47,7 @@ const TankSetup = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    })
+    },[])
 
     return (
         <div className="page">

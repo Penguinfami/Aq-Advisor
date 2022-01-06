@@ -3,20 +3,10 @@ import Button from '../partials/Button';
 import OptionSelect from '../partials/OptionSelect';
 import SelectList from '../partials/SelectList';
 import Error from '../partials/Error';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const StockingSetup = (props) => {
-
-    const sampleSelected = 
-        [{
-                "value": "sunsetplaty",
-                "name": "Sunset Platy",
-                "scientificName": "fivo gallonus",
-                "quantity": 1
-            }
-        ]
-    
 
     const navigate = useNavigate();
 
@@ -28,7 +18,6 @@ const StockingSetup = (props) => {
     const [speciesToRemove, setSpeciesToRemove] = useState(null);
     const [quantityAdd, setQuantityAdd] = useState(1);
     const [quantityRemove, setQuantityRemove] = useState(1);
-    //const [props.selectedSpecies, props.props.selectedSpecies] = useState([]);
     
     function handleChange(e){
         const {name, value} = e.target;
@@ -48,12 +37,15 @@ const StockingSetup = (props) => {
         if (speciesToAdd === null){
             toggleErrorMessage(true)
             setErrorMessageContent("No species selected to add")
+            return;
         } else if (quantityAdd < 1) {
             toggleErrorMessage(true)
             setErrorMessageContent("The quantity to add must be 1 or greater")  
-        } else if (props.selectedSpecies.length > 1){
+            return;
+        } else if (props.selectedSpecies.length >= 1 && props.selectedSpecies[0].name !== speciesToAdd.name){
             toggleErrorMessage(true)
             setErrorMessageContent("Due to reliance on API calls every time a new species is added, only 1 species can be selected at a time.");             
+            return;
         }
 
         if (errorMessage) return;
@@ -133,7 +125,7 @@ const StockingSetup = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    })
+    }, [])
 
     return (
         <div className="page">
@@ -154,8 +146,8 @@ const StockingSetup = (props) => {
             
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
-                <OptionSelect onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove ? speciesToRemove.name : null} options={props.selectedSpecies} 
-                    items= {props.selectedSpecies.map((species) =>(
+                <OptionSelect onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove ? speciesToRemove.name : null} 
+                    options = {props.selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 
                             value: species.value,
