@@ -68,7 +68,7 @@ const Results = (props) => {
                 </div>
             </div>
 
-            <Button className="spreadsheetButton" title="Generate Spreadsheet" onClick={() => alert("Spreadsheet Generated!")}/>           
+            <Button className="spreadsheetButton" title="Generate Spreadsheet" onClick={() => alert("Spreadsheet generator to be added in the future. Screenshots only for now.")}/>           
             <Button onClick={() => reset()} title="Start over" className="backButton"/>
 
         </div>
