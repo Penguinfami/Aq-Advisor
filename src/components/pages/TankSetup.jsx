@@ -2,8 +2,10 @@ import TitleHeader from '../partials/TitleHeader'
 import Button from '../partials/Button';
 import OptionSelect from '../partials/OptionSelect';
 import Error from '../partials/Error'
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ScrollTo } from 'react-scroll-to';
+
 const TankSetup = (props) => {
        
     var testo;
@@ -24,7 +26,6 @@ const TankSetup = (props) => {
                 props.setFilters([props.filters[0], props.filtersList.filter((option) => option.name === value)[0]]); break;
         }
         console.log(value);
-        console.log('filters ' + props.filters[0].name)
     }
 
     const onNext = () => {
@@ -42,6 +43,13 @@ const TankSetup = (props) => {
         navigate(props.nextPage);
     }
 
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+
     return (
         <div className="page">
             {errorMessage ? <Error heading="Error" body={errorMessageContent} onClose={() => toggleErrorMessage(false)}/> : null}
@@ -52,7 +60,7 @@ const TankSetup = (props) => {
             
             <div className="dimensionsSelect selectionContainer">
                 <label className="selectHeading" htmlFor="dimensions">Tank Dimensions</label>
-                <OptionSelect selected={ props.dimensions ? props.dimensions.name : null } onChange={handleChange}
+                <OptionSelect className="setupSelect" selected={ props.dimensions ? props.dimensions.name : null } onChange={handleChange}
                     name="dimensions" options={[{value: null, name:"Choose..."},...props.dimensionsList]}/>   
             </div>
             <div className="measurements">               
@@ -77,7 +85,7 @@ const TankSetup = (props) => {
             </div>
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
-                <OptionSelect onChange={handleChange}
+                <OptionSelect className="setupSelect" onChange={handleChange}
                     name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{value: null, name:"Choose...", capacity: null},...props.filtersList]}/>
                 <a href="http://www.aqadvisor.com/articles/AqAdvisorIntro.php" title="aqadvisor calculator info" target="_blank">
                     <Button className="text-decoration-none smallWhy" title="Why?"/>
@@ -85,7 +93,7 @@ const TankSetup = (props) => {
             </div>
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter2">Choose Filter 2</label>
-                <OptionSelect selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
+                <OptionSelect className="setupSelect" selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
                     name="filter2" heading="Choose Filter 2" options={[{value: null, name:"Choose...", capacity: null}, ...props.filtersList]}/>
             </div>
             <Button title="Next" className="nextButton" onClick={() => onNext()}/>

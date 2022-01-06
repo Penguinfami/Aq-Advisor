@@ -26,7 +26,7 @@
   }
   
   .titleHeader {
-    margin-bottom: 3%;
+    margin-bottom: 1%;
   }
 
   #homepage .titleHeader {
@@ -114,7 +114,7 @@
   }
   
   .backButton {
-    margin: 1rem 2rem;
+    margin: 0rem 2rem;
     width: 6.375rem;
     height: 2.2rem;
     align-self: flex-start;
@@ -149,13 +149,17 @@
   
   select {
     border-radius: 0.8rem;
-    height: 2.3rem;
     padding-top: 0.2rem;
     vertical-align: middle;
     text-align: center;
     font-size: 1.125rem;
     width: 100%;
   }
+
+  .setupSelect {
+    height: 2.3rem 
+  }
+
   
   input, select, .selectList, .measurement{
     color: var(--mainInputHeadingColour);
@@ -197,14 +201,18 @@
     min-width: 10rem;
   }
 
-  .selectListItems::-webkit-scrollbar-track{
+  .speciesSelect {
+    padding-bottom: 3rem;
+  }
+
+  .selectionContainer select::-webkit-scrollbar-track{
     visibility: none;
   }
-  .selectListItems::-webkit-scrollbar-thumb{
+  .selectionContainer select::-webkit-scrollbar-thumb{
     background-color: var(--mainInputColour);
   }
 
-  .selectListItems::-webkit-scrollbar{
+  .selectionContainer select::-webkit-scrollbar{
     width: 0.5rem;
   }
 

@@ -1,8 +1,8 @@
 import './App.css';
 import './static/Mobile.css';
 import React from 'react';
-import { useState} from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { useState, useEffect} from 'react';
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
 import TankSetup from './components/pages/TankSetup';
 import StockingSetup from './components/pages/StockingSetup';
@@ -41,8 +41,6 @@ function App() {
 
   const api =  new Api();
   const apiData = require('./apiData.json');
-
-  const resultsLogic = new ResultsLogic();
   const dom = new DOMConverter();
 
   const fetchDatabase = async () => {
