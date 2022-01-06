@@ -1,6 +1,9 @@
+import TitleHeader from '../partials/TitleHeader';
+
 const Buffer = (props) => {
     return (
         <div className = "page">
+            <TitleHeader/>
             <div className="bufferScreen d-block">
                 <div className="modal-dialog bufferDialog">
                     <div className="bufferContent modal-content">

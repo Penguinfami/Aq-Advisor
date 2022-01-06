@@ -25,6 +25,10 @@
     justify-content: center;
   }
   
+  .titleHeader {
+    margin-bottom: 3%;
+  }
+
   #homepage .titleHeader {
       margin-top: 3rem;
   }
