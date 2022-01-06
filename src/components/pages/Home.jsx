@@ -9,6 +9,12 @@ const Home = (props) => {
 
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
 
     return (
         <div id="homepage" className="page">

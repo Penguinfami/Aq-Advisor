@@ -4,7 +4,6 @@ import OptionSelect from '../partials/OptionSelect';
 import Error from '../partials/Error'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ScrollTo } from 'react-scroll-to';
 
 const TankSetup = (props) => {
        

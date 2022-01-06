@@ -128,6 +128,13 @@ const StockingSetup = (props) => {
         navigate(props.nextPage);
     }
 
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+
     return (
         <div className="page">
             {errorMessage ? <Error heading="Error" body={errorMessageContent} onClose={() => toggleErrorMessage(false)}/> : null}

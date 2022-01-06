@@ -11,6 +11,13 @@ const Results = (props) => {
         props.onReset();
     }
 
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+
     return (
         <div className="page">
             <Button onClick={() => navigate(props.prevPage)} title="Back" className="backButton"/>

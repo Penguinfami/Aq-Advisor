@@ -1,10 +1,18 @@
 import TitleHeader from "../partials/TitleHeader"
 import Button from "../partials/Button"
 import { useNavigate } from 'react-router-dom';
+
 const Advice = (props) => {
 
     const navigate = useNavigate();
-
+    
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+    
     return (
         <div className="page">
             <TitleHeader/>
