@@ -6,6 +6,7 @@ class DOMConverter {
 
     parse(htmlString){
         this.elements = this.parser.parseFromString(htmlString, "text/html")
+        this.parsedString = htmlString;
     }
 
     getElementById(id){
@@ -67,6 +68,18 @@ class DOMConverter {
 
     getNextSiblingInnerText(element){
         return element.nextSibling.innerText;
+    }
+
+    getStringArrayFromHTMLString(arrayStartIdentifier, endIdentifier, separator){
+
+        if (!this.parsedString.contains(arrayStartIdentifier)) return false;
+        let startSlice = this.parsedString.slice(this.parsedString.indexOf(arrayStartIdentifier));
+        if (!startSlice.contains(endIdentifier)) return false;
+        let fullSlice = startSlice.slice(0, startSlice.indexOf(endIdentifier));
+
+        let arr = fullSlice.split(separator);
+        
+        return arr;
     }
 
 }

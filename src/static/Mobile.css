@@ -147,7 +147,7 @@
     border: 0.3rem solid var(--mainInputColour);
   }
 
-  input:hover, select:hover, .selectList:hover{
+  select:hover, .selectList:hover{
     cursor: pointer;
   }
 
