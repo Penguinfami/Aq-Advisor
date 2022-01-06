@@ -53,6 +53,26 @@ const TankSetup = (props) => {
                 <OptionSelect selected={ props.dimensions ? props.dimensions.value : null } onChange={handleChange}
                     name="dimensions" options={[{value: null, name:"Choose..."},...props.dimensionsList]}/>   
             </div>
+            <div className="measurements">               
+                <div className="measurementNumber">
+                    <label className="quantityHeading">Length</label>
+                    <div className="measurement">
+                        {props.dimensions ? props.dimensions.length : 0}
+                    </div>
+                </div>
+                <div className="measurementNumber">
+                    <label className="quantityHeading">Depth</label>
+                    <div className="measurement">
+                        {props.dimensions ? props.dimensions.depth : 0}
+                    </div>
+                </div>
+                <div className="measurementNumber">
+                    <label className="quantityHeading">Height</label>
+                    <div className="measurement">
+                        {props.dimensions ? props.dimensions.height : 0}
+                    </div>
+                </div>
+            </div>
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
                 <OptionSelect onChange={handleChange}

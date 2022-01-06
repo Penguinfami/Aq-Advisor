@@ -97,7 +97,7 @@ function App() {
     console.log(staticData);
     let dataLogic = new DatabaseLogic();
     console.log(staticData.tanks);
-    let dList = dataLogic.dimensions(staticData.tanks);
+    let dList = dataLogic.dimensions(staticData.tanks, staticData.lengths, staticData.depths, staticData.heights);
 
     let fList = dataLogic.filters(staticData.filters);
 

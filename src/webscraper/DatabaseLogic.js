@@ -20,7 +20,7 @@ class DatabaseLogic {
         return [commonName, scientificName];
     }
 
-    dimensions(lst = null, lengthLst, depthLst, heightLst){
+    dimensions(lst = [], lengthLst = null, depthLst = null, heightLst = null){
         
         let optionsList;
         let startIndex = 0;
@@ -28,7 +28,7 @@ class DatabaseLogic {
         let depthArray;
         let heightArray;
 
-        if (lst === null){
+        if (lst.length === 0){
             console.log(lst);
             startIndex = 2;
             //optionsList = this.getOptionsList('AquListBoxTank');
@@ -52,17 +52,25 @@ class DatabaseLogic {
 
         for (let i = startIndex; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
             let option = optionsList[i];
+            let newDimension;
             if (lengthArray && depthArray && heightArray){
-
+                newDimension = {
+                    name : option.trim(),
+                    value : this.createValueFromName(option),
+                    length: parseInt(lengthArray[i - startIndex]),
+                    depth: parseInt(depthArray[i - startIndex]),
+                    height: parseInt(heightArray[i - startIndex])
+                }
+    
+            } else {
+                newDimension = {
+                    name : option.trim(),
+                    value : this.createValueFromName(option),
+                    length: false,
+                    depth: false,
+                    height: false
+                }               
             }
-            let newDimension = {
-                name : option.trim(),
-                value : this.createValueFromName(option),
-                length: parseInt(lengthArray[i - startIndex]),
-                depth: parseInt(depthArray[i - startIndex]),
-                height: parseInt(heightArray[i - startIndex]),
-            }
-
             arr.push(newDimension);
         }
 
