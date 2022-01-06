@@ -31,11 +31,10 @@ class DatabaseLogic {
         if (lst.length === 0){
             console.log(lst);
             startIndex = 2;
-            //optionsList = this.getOptionsList('AquListBoxTank');
             optionsList = this.model.getStringArrayFromHTMLString("myTankNames=new Array('", ");", "','");
             if (!optionsList){
                 startIndex = 2;
-                optionsList = this.getOptionsList('AquListBoxFilter');
+                optionsList = this.getOptionsList('AquListBoxTank');
             }
             lengthArray = this.model.getStringArrayFromHTMLString("myFilterCapacity=new Array('", ");", "','");
             depthArray = this.model.getStringArrayFromHTMLString("myTankDepth=new Array('", ");", "','");
