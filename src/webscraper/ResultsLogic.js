@@ -120,13 +120,14 @@ class ResultsLogic {
             if (s.includes("%")){ // provides a recommended percentage or a warning instead
                 let args = s.trim().split(" ");
                 let percent = '';
+                let sTitle;
                 for (let i = 0; i < args.length; i++){
                     if (args[i].includes("%")){
                         percent = args.slice(i).join(" ").replace(".", "");
+                        sTitle = args.slice(0, i).join(" ");
                         break;
                     }
                 }
-                let sTitle = s.replace(percent, "").trim();
                 arr.push({title: sTitle.replace(".", ""), value: percent});
             } else {
                 arr.push({title: s.trim(), value: null});
