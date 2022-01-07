@@ -326,8 +326,8 @@
     color: red;
   }
   
-  .warningMessage, .recommendationComment {
-    color: #9C0000;
+  .warningMessage, .recommendationComment, .warningCapacityComment  {
+    color: #9C0000 !important;
   }
   
   .suggestionHeading{

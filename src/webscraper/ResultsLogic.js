@@ -142,9 +142,14 @@ class ResultsLogic {
     capacityComment(){
         let commentsSection = this.model.getListByInnerText("Your aquarium filtration capacity for above selected species is");
         let textSlice = commentsSection[commentsSection.length - 1];
-        let possibleComment = textSlice.split(".").filter((phrase) => phrase.includes("aquarium filtration capacity"));
-        if (possibleComment[0].includes('%')) return false;
-        return possibleComment[0];
+        let periodPhrases = textSlice.split(".");
+        let possibleComment = periodPhrases.filter((phrase) => phrase.includes("aquarium filtration capacity"));
+        if (!possibleComment[0].includes('%')) return possibleComment[0];
+        let exclamationSplit = periodPhrases.filter((phrase) => phrase.includes("!")).filter((phrase) => phrase.includes("aquarium filtration capacity"));
+        if (exclamationSplit.length === 0) return false;
+        possibleComment = exclamationSplit[0].slice(0, exclamationSplit[0].lastIndexOf('!') + 1);
+        return possibleComment;
+
     }
 
 

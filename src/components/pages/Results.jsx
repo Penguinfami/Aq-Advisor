@@ -51,7 +51,7 @@ const Results = (props) => {
                         ))
                     }
                 </div>
-                <div className="filtrationCapacityComment">
+                <div className={`filtrationCapacityComment ${props.results.filtrationCapacityComment ? props.results.filtrationCapacityComment.includes("Warning") ? 'warningCapacityComment' : null : null}`}>
                     {props.results.filtrationCapacityComment}
                 </div>
                 <div className="recommendationsTable">
