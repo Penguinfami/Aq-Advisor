@@ -251,7 +251,7 @@
 
   .selectedListItem {
       color: black;
-      background-color: var(--mainInputContrastColour);
+      background-color: rgb(223, 223, 223);
   }
 
   input.quantity, .quantityButton {
