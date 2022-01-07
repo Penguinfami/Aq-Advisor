@@ -393,12 +393,12 @@
   @media only screen and (max-width: 400px){
     .quantityInputs.add {
       position: static;
-      margin-bottom: none;
+      margin-bottom: 0;
 
     }
 
     .speciesSelect {
-      padding-bottom: none !important;
+      padding-bottom: 0 !important;
     }
   
     
