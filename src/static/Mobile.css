@@ -410,6 +410,7 @@
 
     .speciesSelect.add {
       padding-bottom: 0 !important;
+      height: 2.3rem ;
     }
 
     .errorBody {

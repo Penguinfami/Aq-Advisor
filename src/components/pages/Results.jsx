@@ -63,7 +63,7 @@ const Results = (props) => {
                             <div key={percentage.title} className="recommendation">
                                 <div className="recommendationTitle">
                                     {percentage.title}
-                                    {percentage.title.trim().slice(percentage.title.length - 2) !== ':' ? ':' : null}
+                                    {!percentage.title.includes(":") ? ':' : null}
                                 </div>
                                 <div className="recommendationValue">
                                     {percentage.value}
