@@ -114,7 +114,8 @@
   }
   
   .backButton {
-    margin: 0rem 2rem;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
     width: 6.375rem;
     height: 2.2rem;
     align-self: flex-start;
