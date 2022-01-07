@@ -205,14 +205,14 @@
     padding-bottom: 3rem;
   }
 
-  .selectionContainer select::-webkit-scrollbar-track{
+  .selectionContainer * ::-webkit-scrollbar-track{
     visibility: none;
   }
-  .selectionContainer select::-webkit-scrollbar-thumb{
+  .selectionContainer * ::-webkit-scrollbar-thumb{
     background-color: var(--mainInputColour);
   }
 
-  .selectionContainer select::-webkit-scrollbar{
+  .selectionContainer * ::-webkit-scrollbar{
     width: 0.5rem;
   }
 
@@ -389,6 +389,19 @@
     margin: 0.2rem;
   }
 
+  @media only screen and (hover: none){
+    .quantityInputs.add {
+      position: static;
+      margin-bottom: auto;
+
+    }
+
+    .speciesSelect {
+      padding-bottom: none;
+    }
+  
+    
+  }
 
 
   @keyframes fadeInAppear {

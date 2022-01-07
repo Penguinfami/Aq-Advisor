@@ -135,7 +135,7 @@ const StockingSetup = (props) => {
             <div className="selectionContainer speciesAddContainer">
                 <label className="selectHeading" htmlFor={"speciesAdd"}>Choose Fish Species</label>
                 <OptionSelect onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd ? speciesToAdd.name : null} options={props.speciesList} />
-                <div className="quantityInputs">
+                <div className="quantityInputs add">
                     <div className="quantityNumber">
                         <label className="quantityHeading" htmlFor="quantityOfSpecies">Quantity</label>
                         <input ref={quantityAddInput} onChange={handleChange} className="quantity" name="quantityOfSpecies" type="number" placeholder={quantityAdd}/>                       
@@ -146,7 +146,7 @@ const StockingSetup = (props) => {
             
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
-                <OptionSelect onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove ? speciesToRemove.name : null} 
+                <SelectList onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove ? speciesToRemove : null} 
                     options = {props.selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 
@@ -154,7 +154,7 @@ const StockingSetup = (props) => {
                             scientificName: species.scientificName
                         }
                         ))} />
-                <div className="quantityInputs">
+                <div className="quantityInputs remove">
                     <div className="quantityNumber">
                         <label className="quantityHeading" htmlFor="quantityOfSelectedSpecies">Quantity</label>
                         <input ref={quantityRemoveInput} onChange={handleChange} className="quantity" name="quantityOfSelectedSpecies" type="number" placeholder={quantityRemove}/>
