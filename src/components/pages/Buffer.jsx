@@ -8,7 +8,7 @@ const Buffer = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    })
+    },[])
 
     return (
         <div className = "page">
