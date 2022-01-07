@@ -134,7 +134,7 @@ const StockingSetup = (props) => {
             <TitleHeader/>
             <div className="selectionContainer speciesAddContainer">
                 <label className="selectHeading" htmlFor={"speciesAdd"}>Choose Fish Species</label>
-                <OptionSelect onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd ? speciesToAdd.name : null} options={props.speciesList} />
+                <OptionSelect onChange={handleChange} className="speciesSelect add" size="8" name="chooseSpeciesListAdd" selectItem={setSpeciesToAdd} selected={speciesToAdd ? speciesToAdd.name : null} options={props.speciesList} />
                 <div className="quantityInputs add">
                     <div className="quantityNumber">
                         <label className="quantityHeading" htmlFor="quantityOfSpecies">Quantity</label>
@@ -146,7 +146,7 @@ const StockingSetup = (props) => {
             
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
-                <SelectList onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} 
+                <SelectList onChange={handleChange} className="speciesSelect remove" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} 
                     options = {props.selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 
