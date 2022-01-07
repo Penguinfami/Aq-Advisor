@@ -115,7 +115,7 @@
   
   .backButton {
     margin-left: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2%;
     width: 6.375rem;
     height: 2.2rem;
     align-self: flex-start;
@@ -239,7 +239,7 @@
 
   .selectedListItem {
       color: black;
-      background-color: rgb(209, 209, 209);
+      background-color: var(--mainInputContrastColour);
   }
 
   input.quantity, .quantityButton {
@@ -390,15 +390,15 @@
     margin: 0.2rem;
   }
 
-  @media only screen and (hover: none){
+  @media only screen and (max-width: 400px){
     .quantityInputs.add {
       position: static;
-      margin-bottom: auto;
+      margin-bottom: none;
 
     }
 
     .speciesSelect {
-      padding-bottom: none;
+      padding-bottom: none !important;
     }
   
     
