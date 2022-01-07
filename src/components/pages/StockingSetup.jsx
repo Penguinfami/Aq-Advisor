@@ -93,7 +93,7 @@ const StockingSetup = (props) => {
                         return species
                     }
                     else {
-                        if (species.quantity == quantityRemove) setSpeciesToRemove(null);
+                        if (species.quantity === quantityRemove) setSpeciesToRemove(null);
                         return {...species, quantity : parseInt(species.quantity) - parseInt(quantityRemove) }
                     }
                 } else {
@@ -105,7 +105,7 @@ const StockingSetup = (props) => {
             return;
         };
         props.setSelectedSpecies(newSpeciesList.filter((species) => parseInt(species.quantity) >= 1));
-        console.log(quantityRemove)
+        console.log(speciesToRemove.value)
         setQuantityRemove(1);
         quantityRemoveInput.current.value = 1;
     }
@@ -146,7 +146,7 @@ const StockingSetup = (props) => {
             
             <div className="selectionContainer speciesRemoveContainer">
                 <label className="selectHeading" htmlFor={"speciesRemove"}>Selected Species</label>
-                <SelectList onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove ? speciesToRemove : null} 
+                <SelectList onChange={handleChange} className="speciesSelect" size="8" name="chooseSpeciesListRemove" selectItem={setSpeciesToRemove} selected={speciesToRemove} 
                     options = {props.selectedSpecies.map((species) =>(
                         {
                             name:`${species.quantity}x ${species.name}`, 
