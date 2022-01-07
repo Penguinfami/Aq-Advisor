@@ -85,14 +85,14 @@ const TankSetup = (props) => {
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
                 <OptionSelect className="setupSelect" onChange={handleChange}
-                    name="filter1" selected={ props.filters[0] ? props.filters[0].value : null} heading="Choose Filter 1" options={[{value: null, name:"Choose...", capacity: null},...props.filtersList]}/>
+                    name="filter1" selected={ props.filters[0] ? props.filters[0].name : null} heading="Choose Filter 1" options={[{value: null, name:"Choose...", capacity: null},...props.filtersList]}/>
                 <a href="http://www.aqadvisor.com/articles/AqAdvisorIntro.php" title="aqadvisor calculator info" target="_blank">
                     <Button className="text-decoration-none smallWhy" title="Why?"/>
                 </a>
             </div>
             <div className="filterSelect selectionContainer">
                 <label className="selectHeading" htmlFor="filter2">Choose Filter 2</label>
-                <OptionSelect className="setupSelect" selected={ props.filters[1] ? props.filters[1].value : null} onChange={handleChange}
+                <OptionSelect className="setupSelect" selected={ props.filters[1] ? props.filters[1].name : null} onChange={handleChange}
                     name="filter2" heading="Choose Filter 2" options={[{value: null, name:"Choose...", capacity: null}, ...props.filtersList]}/>
             </div>
             <Button title="Next" className="nextButton" onClick={() => onNext()}/>

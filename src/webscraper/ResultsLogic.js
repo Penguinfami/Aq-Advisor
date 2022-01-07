@@ -62,7 +62,7 @@ class ResultsLogic {
     }
 
     suggestions(){
-        return this.getFeedback('Note:')
+        return this.getFeedback('Note:').concat(this.getFeedback('Suggestion:'))
     }
 
     ranges(){
