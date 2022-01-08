@@ -59,7 +59,7 @@
     max-width: 30rem;
     padding: 6%;
     text-align: center;
-    background-color: rgb(231, 246, 255) !important;
+    background-color: rgb(231, 253, 255) !important;
     border: 0.2rem solid var(--mainInputColour) !important;
     border-radius: 0.9rem !important;
   }
@@ -251,7 +251,7 @@
 
   .selectedListItem {
       color: black;
-      background-color: rgb(223, 223, 223);
+      background-color: var(--mainInputContrastColour);
   }
 
   input.quantity, .quantityButton {

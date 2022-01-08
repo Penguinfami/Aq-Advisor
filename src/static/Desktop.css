@@ -1,0 +1,193 @@
+@media only screen and (min-width: 800px){
+    .App {
+        background-color: var(--mainBackgroundColour);
+        min-height: 100vh;
+        width: 100%;
+        margin: auto;
+    }
+
+    .footer {
+        width: 100%;
+    }
+
+    .page {
+        flex-flow: row wrap;
+        width: 80vw;
+        margin: auto;
+    }
+
+    .errorMessageBackground, .bufferScreen {
+        max-width: 100%;
+    }
+    .titleHeader {
+        text-align: center;
+        width: 100%;
+    }
+
+    .selectionContainer {
+        width: 50%;
+        align-items: center;
+    }
+
+    .dimensionsSelect div, .filterSelect div{
+        width: 70%;
+    }
+    
+    .nextButton{
+        justify-self: flex-end;
+    }
+
+    .measurements{
+  
+    }
+
+
+    .speciesAddContainer div{
+        width: 100%;
+    }
+    
+
+    .speciesRemoveContainer{
+    }
+
+
+
+    .selectListItems{
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: var(--mainInputContrastColour) var(--mainInputColour);
+        height: 11rem;
+        width: 100%;
+        border-radius: 0.7rem;
+        padding-bottom: 3rem;
+    }
+    
+    .selectListItem {
+        width: 100%;
+        color: var(--mainInputHeadingColour);
+    }
+
+    .selectListItem:hover {
+        color: black;
+    }
+
+
+    .selectedListItem {
+        color: black;
+        background-color: rgb(223, 223, 223);
+    }
+
+    .quantityInputs {
+        position: static;
+        margin-bottom: 0;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 80%;
+        top: 0;
+    }
+
+  
+    /**.quantityInputs {
+        position: relative;
+        top: -3rem;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -3rem;
+        background-color: rgba(240, 248, 255, 0.315);
+    }**/
+    .quantityNumber {
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .quantityHeading {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .quantityButton {
+        width: 100px;
+        height: 3rem;
+        text-align: center;
+        padding: 0;
+    }
+
+    .quantityButton:hover, .quantityButton:active, .nextButton:hover, .backButton:hover,
+    .nextButton:active, .backButton:active {
+    background-color: var(--mainButtonPressColour);
+    }
+    
+    label {
+    font-size: 1.5rem;
+    color: var(--mainInputHeadingColour);
+    }
+    
+    
+    .warning, .suggestion {
+        width: 100%;
+    }
+    
+    .inputSummary {
+    font-size: 1.25rem;
+    color: var(--mainInputColourVariant);
+    width: 90%;
+    line-height: 1.5rem;
+    animation: fadeInAppear ease-in 1s;
+    }
+    
+    .inputSummarySpecific {
+    color: #00417D;
+    }
+    
+    .resultsDisplay {
+    width: 90%;
+    max-width: 800px;
+    line-height: 1.2rem;
+    }
+
+    .resultsDisplay > div:first-child {
+    animation: fadeInAppearDelayed ease-in 2s;
+    }
+
+    .resultsDisplay > div:nth-child(2) {
+    animation: fadeInAppearDelayed ease-in 3s;
+    }
+
+    .resultsDisplay > div:nth-child(3) {
+    animation: fadeInAppearDelayed ease-in 3.5s;
+    }
+    
+    .recommendationsTable {
+    display: flex;
+    flex-flow: column wrap;
+    font-size: 1.125rem;
+    }
+    
+    .recommendation {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0.6rem 0.2rem;
+    text-align: center;
+    }
+    
+    .recommendationTitle {
+    width: 50%;
+    text-align: left;
+    }
+    
+    .recommendationValue {
+    width: 50%;
+    min-width: 50px;
+    text-align: right;
+    }
+
+}

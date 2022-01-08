@@ -86,8 +86,8 @@ const TankSetup = (props) => {
                 <label className="selectHeading" htmlFor="filter1">Choose Filter 1</label>
                 <OptionSelect className="setupSelect" onChange={handleChange}
                     name="filter1" selected={ props.filters[0] ? props.filters[0].name : null} heading="Choose Filter 1" options={[{value: null, name:"Choose...", capacity: null},...props.filtersList]}/>
-                <a href="http://www.aqadvisor.com/articles/AqAdvisorIntro.php" title="aqadvisor calculator info" target="_blank">
-                    <Button className="text-decoration-none smallWhy" title="Why?"/>
+                <a className="text-decoration-none smallWhy" href="http://www.aqadvisor.com/articles/AqAdvisorIntro.php" title="aqadvisor calculator info" target="_blank">
+                    <Button className="smallWhy" title="Why?"/>
                 </a>
             </div>
             <div className="filterSelect selectionContainer">

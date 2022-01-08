@@ -124,7 +124,7 @@ const StockingSetup = (props) => {
     }, [])
 
     return (
-        <div className="page">
+        <div className="page stockingPage">
             {errorMessage ? <Error heading="Error" body={errorMessageContent} onClose={() => toggleErrorMessage(false)}/> : null}
             <Button title="Back" onClick={() => navigate(props.prevPage)} className="backButton" routename="/tank"/>
             <TitleHeader/>
