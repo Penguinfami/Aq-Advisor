@@ -31,16 +31,20 @@ class ResultsLogic {
             filterQuantity = 2
         }
         let filterRate1 = input.filterRate1;
-        console.log("a stocking");
-        console.log(input.stocking[0]);
-        let speciesName = this.urlifyString(input.stocking[0].name);
-        let scientificName = this.urlifyString(input.stocking[0].scientificName);
-        let speciesQuantity = input.stocking[0].quantity;
+
+        let speciesURLString = input.stocking[0].speciesID + "%3A" + input.stocking[0].quantity + "%3A%3A";
+        for ( let i = 1; i < input.stocking.length; i++){
+            speciesURLString += "%2C" + input.stocking[i].speciesID + "%3A" + input.stocking[i].quantity + "%3A%3A";
+        }
+
+        console.log(speciesURLString)
 
         let newURL = `www.aqadvisor.com/AqAdvisor.php?AquTankName=&AquListBoxTank=${tank}&AquTankLength=${length}&AquTankDepth=${depth}&AquTankHeight=${height}&FormSubmit=Update&AquListBoxFilter=${filter1}&AquTextFilterRate=${filterRate1}+&AquListBoxFilter2=${filter2}&AquTextFilterRate2=${filterRate2}+&AquFilterString=&` + 
-        `AquListBoxChooser=${speciesName}+%28${scientificName}%29&AquTextBoxQuantity=${speciesQuantity}&AquTextBoxRemoveQuantity=&AlreadySelected=&FilterMode=Display+all+species&AqTempUnit=C&AqVolUnit=gUS&AqLengthUnit=inch&AqSortType=cname&FilterQuantity=${filterQuantity}&AqJuvMode=&AqSpeciesWindowSize=short&AqSearchMode=simple` 
+        `AquListBoxChooser=&AquTextBoxQuantity=&AquTextBoxRemoveQuantity=&AlreadySelected=${speciesURLString}&FilterMode=Display+all+species&AqTempUnit=C&AqVolUnit=gUS&AqLengthUnit=inch&AqSortType=cname&FilterQuantity=${filterQuantity}&AqJuvMode=&AqSpeciesWindowSize=short&AqSearchMode=simple` 
         console.log(newURL);
+        
         let fullURL = "https://scrapingant.p.rapidapi.com/get?url=" + encodeURIComponent(newURL) + "&response_format=json"; // post
+        
         return fullURL;
     
     }

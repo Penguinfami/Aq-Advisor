@@ -109,7 +109,7 @@ class DatabaseLogic {
         return arr;
     }
 
-    species(lst = null){
+    species(lst = null, ids){
 
         let optionsList;
         let startIndex = 0;
@@ -127,11 +127,14 @@ class DatabaseLogic {
         for (let i = startIndex; i < optionsList.length; i++){ // since the first 2 options are 'Choose' and 'User defined'
             let option = optionsList[i];
             let names = this.getSpeciesNames(option);
+            console.log(ids[i - startIndex]);
             let newSpecies = {
                 name : names[0],
                 scientificName: names[1],
-                value : `${this.createValueFromName(option)}${i}`
+                value : `${this.createValueFromName(option)}${i}`,
+                speciesID: ids[i - startIndex]
             }
+            
             arr.push(newSpecies);
         }
         return arr;

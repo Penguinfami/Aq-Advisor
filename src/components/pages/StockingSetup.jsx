@@ -42,12 +42,7 @@ const StockingSetup = (props) => {
             toggleErrorMessage(true)
             setErrorMessageContent("The quantity to add must be 1 or greater")  
             return;
-        } else if (props.selectedSpecies.length >= 1 && props.selectedSpecies[0].name !== speciesToAdd.name){
-            toggleErrorMessage(true)
-            setErrorMessageContent("Due to reliance on API calls every time a new species is added, only 1 species can be selected at a time.");             
-            return;
-        }
-
+        } 
         if (errorMessage) return;
         let alreadyAdded = false;
         props.setSelectedSpecies(props.selectedSpecies.map(
@@ -65,7 +60,8 @@ const StockingSetup = (props) => {
                 value: speciesToAdd.value,
                 name: speciesToAdd.name,
                 scientificName: speciesToAdd.scientificName,
-                quantity: quantityAdd
+                quantity: quantityAdd,
+                speciesID: speciesToAdd.speciesID
             }
             props.setSelectedSpecies([...props.selectedSpecies, newSpeciesEntry ]);
         }

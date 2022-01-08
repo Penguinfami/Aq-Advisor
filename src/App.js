@@ -94,18 +94,18 @@ function App() {
 
     toggleBuffer(true);
     setBufferMessage("Fetching static database");
-    const staticData = require('./staticData.json');
-    console.log(staticData);
+    const staticData = require('./static/staticData.json');
+    
     let dataLogic = new DatabaseLogic();
-    console.log(staticData.tanks);
+
     let dList = dataLogic.dimensions(staticData.tanks, staticData.lengths, staticData.depths, staticData.heights);
 
     let fList = dataLogic.filters(staticData.filters, staticData.filterCapacity);
 
-    let sList = dataLogic.species(staticData.species);
+    let sList = dataLogic.species(staticData.species, staticData.speciesIDs);
 
     setAqAdvisorData({ dimensionsList: dList, filtersList: fList, speciesList: sList })
-
+    
     setDataFetched(true);
     toggleBuffer(false);
 
@@ -139,6 +139,10 @@ function App() {
       filterRate2: filterRate2,
       filterQuantity: numFilters,
       stocking: stocking
+    }
+
+    for ( let i = 0; i < stocking.length; i ++){
+      console.log(stocking[i]);
     }
 
     let url = resultsLogic.createURL(input);
