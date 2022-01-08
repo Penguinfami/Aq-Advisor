@@ -82,10 +82,9 @@ const StockingSetup = (props) => {
         let newSpeciesList = props.selectedSpecies.map(
                 (species) => {
                 if (species.value === speciesToRemove.value){
-                    if (species.quantity < quantityRemove) {
-                        console.log(species);
+                    if (parseInt(species.quantity) < quantityRemove) {
+                        setErrorMessageContent(`The quantity (${quantityRemove}) to remove is more than the amount of the species currently selected (${species.quantity}).`)
                         toggleErrorMessage(true) 
-                        setErrorMessageContent(`The quantity (${quantityRemove}) to remove is less than the amount of the species currently selected (${species.quantity}).`)
                         return species
                     }
                     else {
