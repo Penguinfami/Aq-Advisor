@@ -242,6 +242,7 @@
   .selectListItem {
     width: 100%;
     color: var(--mainInputHeadingColour);
+    background-color: var(--mainInputContrastColour);
   }
 
   .selectListItem:hover {
@@ -251,7 +252,7 @@
 
   .selectedListItem {
       color: black;
-      background-color: var(--mainInputContrastColour);
+      background-color: rgb(207, 207, 207);
   }
 
   input.quantity, .quantityButton {
