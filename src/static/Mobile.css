@@ -22,8 +22,9 @@
     margin: auto 1rem;
   }
 
-  .titleHeader {
+  .titleHeader h1 {
     margin-top: calc(1rem + 0.1vw);
+    font-size: calc(1.8rem + 1.1vw) !important;
   }
   
   #homepage {
@@ -212,28 +213,28 @@
     background-color: var(--mainInputContrastColour);
     width: 100%;
     min-width: 10rem;
+    height: 13rem;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--mainInputContrastColour) var(--mainInputColour);
   }
 
   .speciesSelect {
     padding-bottom: 3rem;
   }
 
-  .selectionContainer * ::-webkit-scrollbar-track{
+  .page * ::-webkit-scrollbar-track{
     visibility: none;
   }
-  .selectionContainer * ::-webkit-scrollbar-thumb{
+  .page * ::-webkit-scrollbar-thumb{
     background-color: var(--mainInputColour);
   }
 
-  .selectionContainer * ::-webkit-scrollbar{
+  .page * ::-webkit-scrollbar{
     width: 0.5rem;
   }
 
   .selectListItems{
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: var(--mainInputContrastColour) var(--mainInputColour);
-    height: 11rem;
     width: 100%;
     border-radius: 0.7rem;
     padding-bottom: 3rem;
@@ -315,12 +316,13 @@
     width: 85%;
     display: flex;
     flex-flow: column wrap;
-    align-items: center;
+    align-items: stretch;
     animation: fadeInAppearDelayed ease-in 0.7s;
   }
   
   .adviceHeading {
-    font-size: 1.5rem;
+    font-size: calc(1.5rem + 1.4vw);
+    text-align: center;
   }
   
   .warningHeading{
