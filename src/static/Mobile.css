@@ -223,14 +223,16 @@
     padding-bottom: 3rem;
   }
 
-  .page * ::-webkit-scrollbar-track{
+   * ::-webkit-scrollbar-track{
     visibility: none;
   }
-  .page * ::-webkit-scrollbar-thumb{
+
+  * ::-webkit-scrollbar-thumb{
     background-color: var(--mainInputColour);
+    border-radius: 1rem;
   }
 
-  .page * ::-webkit-scrollbar{
+  * ::-webkit-scrollbar{
     width: 0.5rem;
   }
 
