@@ -149,7 +149,6 @@
     max-width: 80vw;
   }
 
-  
   .selectOption {
     display: flex;
     flex-flow: column wrap;
@@ -224,7 +223,7 @@
   }
 
    * ::-webkit-scrollbar-track{
-    visibility: none;
+    background-color: var(--mainBackgroundColour);
   }
 
   * ::-webkit-scrollbar-thumb{
@@ -234,6 +233,11 @@
 
   * ::-webkit-scrollbar{
     width: 0.5rem;
+  }
+
+  .page * ::-webkit-scrollbar-track{
+    visibility: hidden !important;
+    background: none;
   }
 
   .selectListItems{
