@@ -35,28 +35,44 @@ const Results = (props) => {
             <div className="resultsDisplay">
                 <div className="recommendationsTable">
                     {
-                        props.results.ranges.map((range) => (
+                        props.ranges.map((range) => (
                              range.value !== null ?
-                                <div key={range.title} className="recommendation">
-                                    <div className="recommendationTitle">
-                                        {range.title}:
-                                    </div>
-                                    <div className="recommendationValue">
-                                        {range.value}
-                                    </div>
-                                </div> 
+                                !range.hasConflict ?                                   
+                                    <div key={range.title} className="recommendation">
+                                        <div className="recommendationTitle">
+                                            {range.title}:
+                                        </div>
+                                        <div className="recommendationValue">
+                                            {range.value}
+                                        </div>
+                                    </div> 
+                                : <div key={range.title} className="recommendationComment recommendationConflict">
+                                    <div className="recommendationConflictLabel">{range.title}</div>
+                                    <ul className="rangeConflictList">
+                                        {range.value.map((conflictListItem) => 
+                                        <li key={conflictListItem[1]} className="rangeConflictListItem">
+                                            <div className="recommendationConflictTitle">
+                                                {`${conflictListItem[1]}`}
+                                            </div>
+                                            <div className="recommendationConflictValue">
+                                                {`${conflictListItem[0]}`}
+                                            </div>
+                                        </li> 
+                                        )}
+                                    </ul>                                   
+                                  </div>
                             :
                             <div key={range.title} className="recommendation recommendationComment">{range.title}</div>                         
                             
                         ))
                     }
                 </div>
-                <div className={`filtrationCapacityComment ${props.results.filtrationCapacityComment ? props.results.filtrationCapacityComment.includes("Warning") ? 'warningCapacityComment' : null : null}`}>
-                    {props.results.filtrationCapacityComment}
+                <div className={`filtrationCapacityComment ${props.filtrationCapacityComment ? props.filtrationCapacityComment.includes("Warning") ? 'warningCapacityComment' : null : null}`}>
+                    {props.filtrationCapacityComment}
                 </div>
                 <div className="recommendationsTable">
                 {
-                        props.results.percentages.map((percentage) => (
+                        props.percentages.map((percentage) => (
 
                             percentage.value !== null ? 
 

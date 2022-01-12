@@ -1,7 +1,12 @@
 class ResultsLogic {
     
-    constructor(model){
+    constructor(model, species){
         this.model = model;
+        this.capacityComment = null;
+        this.ranges = null;
+        this.percentages = null;
+        this.species = species;
+
     }
 
     setDOMModel(model){
@@ -61,34 +66,49 @@ class ResultsLogic {
         return arr;        
     }
 
-    warnings(){
+    getWarnings(){
         return this.getFeedback('Warning:');
     }
 
-    suggestions(){
+    getSuggestions(){
         return this.getFeedback('Note:').concat(this.getFeedback('Suggestion:'))
     }
 
-    ranges(){
-
-        let rangeStatements = this.model.getListByInnerText('Recommended', this.model.getElementsByTagName('font'));
-        console.log("ranges");
-        console.log(rangeStatements);
+    getRanges(){
+        let fontElements = this.model.getElementsByTagName('font')
+        let rangeStatements = this.model.getListByInnerText('Recommended', fontElements);
         let arr = [];
-
+        
         for (let i = 0; i < rangeStatements.length; i++){
             let statement = rangeStatements[i];
-            console.log("range");
-            console.log(statement);
             let args = statement.split(':');
             if (!args[1]) continue;
-            arr.push({title: args[0].trim(), value: args[1].trim().slice(0, -1)});
+            arr.push({title: args[0].trim(), value: args[1].trim().slice(0, -1), hasConflict: false});
+        }
+
+        if (arr.length < 3){
+            let filtrationCapacityForSpecies = this.model.getListByInnerText("Your aquarium filtration capacity for above selected species is");
+            let textSlice = filtrationCapacityForSpecies[filtrationCapacityForSpecies.length - 1]; 
+            let compatiblilityStatements = this.model.getListByInnerText('compatible', fontElements);
+            let lastSpecies = this.species[this.species.length - 1].name;
+            for (let i = 0; i < compatiblilityStatements.length; i++){
+                let currentSection = textSlice.slice(textSlice.indexOf(compatiblilityStatements[i]) + compatiblilityStatements[i].length)
+                let endIndex = currentSection.indexOf(lastSpecies) + lastSpecies.length
+                let lineSection = currentSection.slice(0, endIndex)
+                let conflictLines = lineSection.trim().split("=>").map((line) => line.trim().split(":")).filter((line)=> line[0].trim() !== '');
+                arr.push(
+                    {title: compatiblilityStatements[i].trim(),
+                        value: conflictLines,
+                        hasConflict: true
+                    });
+            }            
         }
         
+        this.ranges = arr;
         return arr;       
     }
 
-    percentages(){
+    getPercentages(){
     
         let statements = [];
 
@@ -115,8 +135,6 @@ class ResultsLogic {
         
         statements.push(possibleFinalWarning);
         
-        console.log(possibleFinalWarning);
-
         let arr = [];
 
         for (let i = 0; i < statements.length; i++){
@@ -138,21 +156,31 @@ class ResultsLogic {
             }
         }
 
-        return arr;
+        this.percentages = arr;
 
+        return arr;
 
     }
 
-    capacityComment(){
+    getCapacityComment(){
         let commentsSection = this.model.getListByInnerText("Your aquarium filtration capacity for above selected species is");
         let textSlice = commentsSection[commentsSection.length - 1];
-        let periodPhrases = textSlice.split(".");
+        let lines = textSlice.split('\n');
+        let filtrationSection = lines[lines.length - 1];
+        let periodPhrases = filtrationSection.split('.');
         let possibleComment = periodPhrases.filter((phrase) => phrase.includes("aquarium filtration capacity"));
-        if (!possibleComment[0].includes('%')) return possibleComment[0];
-        let exclamationSplit = periodPhrases.filter((phrase) => phrase.includes("!")).filter((phrase) => phrase.includes("aquarium filtration capacity"));
-        if (exclamationSplit.length === 0) return false;
-        possibleComment = exclamationSplit[0].slice(0, exclamationSplit[0].lastIndexOf('!') + 1);
-        return possibleComment;
+
+        if (possibleComment[0].includes('%')) {
+            let exclamationSplit = periodPhrases.filter((phrase) => phrase.includes("!")).filter((phrase) => phrase.includes("aquarium filtration capacity"));
+            if (exclamationSplit.length === 0) {
+                this.capacityComment = false;
+                return false;
+            }
+            possibleComment = exclamationSplit[0].slice(0, exclamationSplit[0].lastIndexOf('!') + 1);
+            this.capacityComment = possibleComment
+            return possibleComment;
+        }
+        return possibleComment[0];
 
     }
 

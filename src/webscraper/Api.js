@@ -18,6 +18,7 @@ class Api {
           .catch(err => {
             console.log("error fetching");
             console.error(err);
+            return "";
           });
 
         return this.contents;

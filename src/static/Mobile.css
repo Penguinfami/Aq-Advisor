@@ -24,7 +24,7 @@
 
   .titleHeader h1 {
     margin-top: calc(1rem + 0.1vw);
-    font-size: calc(1.8rem + 1.1vw) !important;
+    font-size: calc(1.8 rem + 1.1vw) !important;
   }
   
   #homepage {
@@ -395,6 +395,47 @@
     width: 50%;
     min-width: 50px;
     text-align: right;
+  }
+
+  .recommendationConflict {
+    margin: 0;
+  }
+
+  .rangeConflictList {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .rangeConflictListItem{
+    display: flex;
+    flex-direction: row wrap;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 0 0.5rem 0;
+    align-items: center;
+  }
+
+  .rangeConflictListItem:last-child{
+    margin: 0;
+  }
+  
+  .recommendationConflictLabel{
+    width: 100%;
+    text-align: center;
+  }
+
+  .recommendationConflictTitle {
+    text-align: left;
+    width: 70%;
+    color: black;
+  }
+
+  .recommendationConflictValue {
+    text-align: right;
+    min-width: 5rem;
+    width: 30%;
   }
   
   .filtrationCapacityComment {

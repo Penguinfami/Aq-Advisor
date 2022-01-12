@@ -30,7 +30,11 @@ function App() {
   const [filters, setFilters] = useState([]);
   const [dimensions, setDimensions] = useState({});
   const [stocking, setStocking] = useState([]);
-  
+
+  const [ranges, setRanges] = useState([{}]);
+  const [percentages, setPercentages] = useState([{}]);
+  const [filtrationCapacityComment, setFiltrationCapacityComment] = useState("");
+
   const [buffer, toggleBuffer] = useState(false);
   const [bufferMessage, setBufferMessage] = useState("");
   const [errorMessage, toggleErrorMessage] = useState(false);
@@ -116,7 +120,7 @@ function App() {
     if (resultsFetched) return;
 
     // logic class
-    let resultsLogic = new ResultsLogic(dom);
+    let resultsLogic = new ResultsLogic(dom, [...stocking]);
 
     let numFilters = 2;
     let filter2, filterRate2;
@@ -157,29 +161,31 @@ function App() {
       }
     )
 
-    if (data == ""){
+    if (data == "" || !data.content){
       toggleErrorMessage(true);
-      setErrorMessageContent("There was a problem fetching the live results from www.aqadvisor.com. Sorry about that :(");
+      setErrorMessageContent("There was a problem fetching the live results from www.aqadvisor.com. Please refresh the page and try again. Sorry about that :(");
       return;
     } 
     
     dom.parse(data.content);
 
-    let wList = resultsLogic.warnings();
+    let wList = resultsLogic.getWarnings();
 
-    let sList = resultsLogic.suggestions();
+    let sList = resultsLogic.getSuggestions();
 
-    let rList = resultsLogic.ranges();
+    let rList = resultsLogic.getRanges();
 
-    let pList = resultsLogic.percentages();
+    let pList = resultsLogic.getPercentages();
 
-    let capacityComment = resultsLogic.capacityComment();
+    let capacityComment = resultsLogic.getCapacityComment();
+
+    
+    setResultsFetched(true);
 
     setAqAdvisorResults({ warnings: wList, suggestions: sList, ranges: rList, percentages: pList, filtrationCapacityComment: capacityComment })
 
-    setResultsFetched(true);
     toggleBuffer(false);
-
+    
   }
   
   const updateInput = (value, state, setState) => {
@@ -195,6 +201,19 @@ function App() {
     setResultsFetched(false);
   }
 
+  useEffect(()=>{
+    if (!resultsFetched) return;
+    setRanges([...aqAdvisorResults.ranges])
+    setPercentages([...aqAdvisorResults.percentages])
+    setFiltrationCapacityComment(aqAdvisorResults.filtrationCapacityComment)
+    console.log(ranges);
+    console.log(percentages);
+  }, [aqAdvisorResults])
+
+  useEffect(()=>{
+    console.log("Ranges, percentages and capacity fetched");
+  }, [ranges, percentages, filtrationCapacityComment])
+
   return (
     <div className="App">
       <Router>
@@ -205,9 +224,9 @@ function App() {
                 <Route path="/" element={<Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>}></Route>
                 <Route path="/home" element={<Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>}></Route>
                 <Route path="/tank" element={<TankSetup dimensionsList={aqAdvisorData.dimensionsList} filtersList={aqAdvisorData.filtersList} prevPage="/home" nextPage="/stocking" dimensions={dimensions} setDimensions={setDimensions} filters={filters} setFilters={setFilters}/>}></Route>
-                <Route path="/stocking" element={<StockingSetup onNext={async () => fetchResults()} speciesList={aqAdvisorData.speciesList} prevPage="/tank" nextPage="/advice" updateInput={updateInput} selectedSpecies={stocking} setSelectedSpecies={setStocking}/>}></Route>
+                <Route path="/stocking" element={<StockingSetup onNext={async () => fetchResults()} speciesList={aqAdvisorData.speciesList} prevPage="/tank" nextPage="/advice"  selectedSpecies={stocking} setSelectedSpecies={setStocking}/>}></Route>
                 <Route path="/advice" element={<Advice prevPage="/stocking" nextPage="/results" advice={{warnings: aqAdvisorResults.warnings, suggestions: aqAdvisorResults.suggestions }} />}></Route>
-                <Route path="/results" element={<Results prevPage="/advice" nextPage="/home" onReset={reset} species={[...stocking]} dimensions={dimensions} filters={[...filters]} results={{ranges: aqAdvisorResults.ranges, percentages: aqAdvisorResults.percentages, filtrationCapacityComment: aqAdvisorResults.filtrationCapacityComment}}/>}></Route>                              
+                <Route path="/results" element={<Results prevPage="/advice" nextPage="/home" onReset={reset} species={stocking} dimensions={dimensions} filters={filters} ranges={ranges} percentages={percentages} filtrationCapacityComment={filtrationCapacityComment}/>}></Route>                              
             </Routes>   
             : <Home onNext={fetchDatabase} nextPage="/tank" updateInput={updateInput} name={name} setName={setName}/>    
             : <Buffer message={bufferMessage}/>
