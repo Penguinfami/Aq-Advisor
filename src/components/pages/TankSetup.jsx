@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const TankSetup = (props) => {
        
-    var testo;
     const [errorMessage, toggleErrorMessage] = useState(false);
     const [errorMessageContent, setErrorMessageContent] = useState("");
 

@@ -37,20 +37,11 @@
         justify-self: flex-end;
     }
 
-    .measurements{
-  
-    }
-
 
     .speciesAddContainer div{
         width: 100%;
     }
     
-
-    .speciesRemoveContainer{
-    }
-
-
 
     .selectListItems{
         overflow-y: scroll;
