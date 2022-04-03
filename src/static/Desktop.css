@@ -1,12 +1,20 @@
 @media only screen and (min-width: 800px){
-    .App {
-        background-color: var(--mainBackgroundColour);
+
+    #root {
+        background-color: white;
         min-height: 100vh;
-        width: 100%;
-        margin: auto;
+        padding-top: 2rem;
     }
 
-    .footer {
+    .App {
+        background-color: var(--mainBackgroundColour);
+        width: 95%;
+        margin: auto;
+        border-radius: 4rem;
+        border: 0.5rem solid var(--mainInputColour);
+    }
+
+   /** .footer {
         width: 100%;
     }
 
@@ -92,7 +100,7 @@
         margin-right: auto;
         margin-bottom: -3rem;
         background-color: rgba(240, 248, 255, 0.315);
-    }**/
+    }
     .quantityNumber {
         display: flex;
         flex-flow: column wrap;
@@ -179,6 +187,6 @@
     width: 50%;
     min-width: 50px;
     text-align: right;
-    }
+    }**/
 
 }

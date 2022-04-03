@@ -29,7 +29,7 @@ const TankSetup = (props) => {
     const onNext = () => {
         console.log(props.dimensionsList);
         console.log(props.dimensions, props.filters[0]);
-        if (!props.dimensions) {
+        if (!('name' in props.dimensions)) {
             console.log("dimensions", props.dimensions);
             setErrorMessageContent("Missing tank dimensions.")
             return toggleErrorMessage(true);

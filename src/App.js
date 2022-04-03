@@ -1,5 +1,6 @@
 import './App.css';
 import './static/Mobile.css';
+import './static/Desktop.css';
 import React from 'react';
 import { useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
