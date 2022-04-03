@@ -150,8 +150,9 @@
     display: flex;
     flex-flow: column wrap;
     align-items: stretch; 
-    width: 16.5625rem;
-    max-width: 80vw;
+    width: 80%;
+    /*width: 16.5625rem;*/
+    max-width: 20rem;
   }
 
   .selectOption {
