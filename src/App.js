@@ -153,16 +153,29 @@ function App() {
 
     toggleBuffer(true);
     setBufferMessage("Fetching results from www.aqadvisor.com. This may take a moment.");
-    console.log(process.env.API_HOST);
-    console.log(process.env.API_KEY);
+    
+
+    let host, key;
+    try {
+      let apiData = require('./api.json');
+      host = apiData.APIHost;
+      key = apiData.APIKey;
+      console.log("Using config data")
+
+    } catch (e){
+      host = process.env.REACT_APP_API_HOST;
+      key = process.env.REACT_APP_API_KEY;
+      console.log("Using environment")
+    }
+
     const data = await api.getData(url, 
       {
-        "x-rapidapi-host": process.env.REACT_APP_API_HOST,
-        "x-rapidapi-key": process.env.REACT_APP_API_KEY     
+        "x-rapidapi-host": host,
+        "x-rapidapi-key": key     
       }
     )
 
-    if (data == "" || !data.content){
+    if (data === "" || !data.content){
       toggleErrorMessage(true);
       setErrorMessageContent("There was a problem fetching the live results from www.aqadvisor.com. Please refresh the page and try again. Sorry about that :(");
       return;
