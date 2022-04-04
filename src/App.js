@@ -153,7 +153,8 @@ function App() {
 
     toggleBuffer(true);
     setBufferMessage("Fetching results from www.aqadvisor.com. This may take a moment.");
-
+    console.log(process.env.API_HOST);
+    console.log(process.env.API_KEY);
     const data = await api.getData(url, 
       {
         "x-rapidapi-host": process.env.API_HOST,
