@@ -157,8 +157,8 @@ function App() {
     console.log(process.env.API_KEY);
     const data = await api.getData(url, 
       {
-        "x-rapidapi-host": process.env.API_HOST,
-        "x-rapidapi-key": process.env.API_KEY     
+        "x-rapidapi-host": process.env.REACT_APP_API_HOST,
+        "x-rapidapi-key": process.env.REACT_APP_API_KEY     
       }
     )
 
