@@ -45,7 +45,6 @@ function App() {
   const [resultsFetched, setResultsFetched] = useState(false);
 
   const api =  new Api();
-  const apiData = require('./apiData.json');
   const dom = new DOMConverter();
 
   const fetchDatabase = async () => {
@@ -157,8 +156,8 @@ function App() {
 
     const data = await api.getData(url, 
       {
-        "x-rapidapi-host": apiData.APIHost,
-        "x-rapidapi-key": apiData.APIKey       
+        "x-rapidapi-host": process.env.API_HOST,
+        "x-rapidapi-key": process.env.API_KEY     
       }
     )
 
