@@ -111,8 +111,15 @@ const StockingSetup = (props) => {
             setErrorMessageContent("No fish species have been added.")
             return;
         } 
-        const next = await props.onNext();
-        navigate(props.nextPage);
+        try {
+            const next = await props.onNext();
+            if (next){
+                console.log('navigating to nextPage')
+                navigate(props.nextPage);
+            }
+        } catch(e){
+            console.log(e)
+        }
     }
 
     useEffect(()=>{

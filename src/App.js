@@ -183,23 +183,31 @@ function App() {
     
     dom.parse(data.content);
 
-    let wList = resultsLogic.getWarnings();
+    let success = true;
 
-    let sList = resultsLogic.getSuggestions();
+    try {
+      let wList = resultsLogic.getWarnings();
 
-    let rList = resultsLogic.getRanges();
+      let sList = resultsLogic.getSuggestions();
 
-    let pList = resultsLogic.getPercentages();
+      let rList = resultsLogic.getRanges();
 
-    let capacityComment = resultsLogic.getCapacityComment();
+      let pList = resultsLogic.getPercentages();
 
-    
-    setResultsFetched(true);
+      let capacityComment = resultsLogic.getCapacityComment();
 
-    setAqAdvisorResults({ warnings: wList, suggestions: sList, ranges: rList, percentages: pList, filtrationCapacityComment: capacityComment })
+      
+      setResultsFetched(true);
 
+      setAqAdvisorResults({ warnings: wList, suggestions: sList, ranges: rList, percentages: pList, filtrationCapacityComment: capacityComment })
+    } catch (e){
+      setErrorMessageContent('There was a problem getting the results. Please refresh and try again.')
+      toggleErrorMessage(true)
+      success = false
+      
+    }
     toggleBuffer(false);
-    
+    return success;
   }
   
   const updateInput = (value, state, setState) => {

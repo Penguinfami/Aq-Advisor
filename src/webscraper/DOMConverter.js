@@ -40,8 +40,11 @@ class DOMConverter {
         }
         for (let i = 0; i < childElements.length; i++){
             let child = childElements[i];
-            if (child.childNodes.length === 1 && child.innerText.includes(text)){
-                arr.push(child.innerText);
+
+            if (child.childNodes.length === 1 && typeof child.innerText != 'undefined'){
+                if (child.innerText.includes(text)){
+                    arr.push(child.innerText);
+                }
             }
         }
 
