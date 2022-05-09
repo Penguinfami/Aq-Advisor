@@ -201,7 +201,7 @@ function App() {
 
       setAqAdvisorResults({ warnings: wList, suggestions: sList, ranges: rList, percentages: pList, filtrationCapacityComment: capacityComment })
     } catch (e){
-      setErrorMessageContent('There was a problem getting the results. Please refresh and try again.')
+      setErrorMessageContent('There was a problem with getting the results. Please refresh and try again.')
       toggleErrorMessage(true)
       success = false
       
